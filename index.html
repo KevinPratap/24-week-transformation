@@ -356,12 +356,21 @@ function renderToday(){
   document.getElementById('sLost').textContent=(st-cur).toFixed(1)>0?(st-cur).toFixed(1):'0';
   const meals=getTodayMeals(dN);
   document.getElementById('calTarget').textContent=i.cal;
-  let mh='',totC=0;
+  let mh='',totC=0,lastGroup='';
   meals.forEach((m,idx)=>{
     const done=state.doneMeals.includes(idx+'-'+tdy);
     const recOpen=state.recipeOpen.includes(idx+'-'+tdy);
     if(done)totC+=m.c;
     const r=findR(m.r);
+    const hour=parseInt(m.t);
+    let group='';
+    if(hour<10)group='Breakfast';
+    else if(hour<15)group='Lunch';
+    else if(hour<20)group='Snacks';
+    else group='Dinner';
+    if(group!==lastGroup){lastGroup=group;
+      mh+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:600;padding:12px 0 4px;border-top:'+(lastGroup==='Breakfast'?'none':'1px solid var(--border)')+'">'+group+'</div>';
+    }
     mh+=`<div class="meal-item${done?' done':''}">
       <div class="meal-dot"></div>
       <div class="meal-info" onclick="togRecipe(${idx})">
