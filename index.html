@@ -362,11 +362,11 @@ function renderToday(){
     const recOpen=state.recipeOpen.includes(idx+'-'+tdy);
     if(done)totC+=m.c;
     const r=findR(m.r);
-    const hour=parseInt(m.t);
+    const parts=m.t.split(' '),h=parseInt(parts[0]),isPM=parts[1]==='PM',hour24=isPM?h+12:h;
     let group='';
-    if(hour<10)group='Breakfast';
-    else if(hour<15)group='Lunch';
-    else if(hour<20)group='Snacks';
+    if(hour24<10)group='Breakfast';
+    else if(hour24<15)group='Lunch';
+    else if(hour24<20)group='Snacks';
     else group='Dinner';
     if(group!==lastGroup){lastGroup=group;
       mh+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text3);font-weight:600;padding:12px 0 4px;border-top:'+(lastGroup==='Breakfast'?'none':'1px solid var(--border)')+'">'+group+'</div>';
