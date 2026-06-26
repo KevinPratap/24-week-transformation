@@ -4,714 +4,782 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#1a1a2e">
+<meta name="theme-color" content="#0a0a0a">
 <title>24-Week Transformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ── Reset ── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img{max-width:100%;display:block}
+
+/* ── Variables ── */
 :root{
-  --bg:#1a1a2e;
-  --card:#16213e;
-  --card2:#0f3460;
-  --accent:#e94560;
-  --accent2:#f5c518;
-  --green:#2ecc71;
-  --text:#eaeaea;
-  --muted:#8892b0;
-  --radius:12px;
-  --shadow:0 4px 20px rgba(0,0,0,0.3);
+  --bg:          #0a0a0a;
+  --surface:     #111111;
+  --surface2:    #1a1a1a;
+  --border:      #1e1e1e;
+  --text:        #f5f5f5;
+  --text2:       #a0a0a0;
+  --text3:       #555555;
+  --accent:      #ffffff;
+  --accent2:     #888888;
+  --green:       #22c55e;
+  --red:         #ef4444;
+  --radius:      12px;
+  --radius-sm:   8px;
+  --shadow:      0 1px 3px rgba(0,0,0,0.4);
+  --font:        'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading:'Barlow Condensed', sans-serif;
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
+
+/* ── Base ── */
+html{font-size:16px; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-family:var(--font);
   background:var(--bg);
   color:var(--text);
-  max-width:480px;margin:0 auto;padding:0 0 80px;min-height:100vh;
-  -webkit-tap-highlight-color:transparent;
+  max-width:430px; margin:0 auto; min-height:100vh;
+  padding-bottom:calc(72px + var(--safe-bottom));
+  user-select:none; -webkit-tap-highlight-color:transparent;
 }
-/* HEADER */
-.header{
-  background:linear-gradient(135deg,#16213e,#0f3460);
-  padding:20px 16px 16px;position:sticky;top:0;z-index:10;
-  border-bottom:1px solid rgba(233,69,96,0.2);
+
+/* ── Top Bar ── */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 20px 8px;
 }
-.header h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:2px}
-.header .sub{font-size:13px;color:var(--muted)}
-.header .badge{
-  display:inline-block;background:var(--accent);color:#fff;
-  padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;
-  margin-top:4px;
+.topbar h1{
+  font-family:var(--font-heading);
+  font-weight:800; font-size:20px; letter-spacing:-0.3px;
+  color:var(--text);
 }
-.header .progress-bar{
-  height:4px;background:rgba(255,255,255,0.1);border-radius:2px;
-  margin-top:12px;overflow:hidden;
+.topbar .meta{
+  font-size:11px; color:var(--text3); letter-spacing:0.5px;
+  text-transform:uppercase; font-weight:500; margin-top:1px;
 }
-.header .progress-fill{
-  height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));
-  border-radius:2px;transition:width 0.5s;
+.topbar .badge{
+  font-size:11px; font-weight:600; color:var(--text);
+  background:var(--border); padding:4px 10px; border-radius:6px;
+  letter-spacing:0.3px;
 }
-/* TABS */
-.tabs{
-  display:flex;background:var(--card);position:sticky;top:68px;z-index:9;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  overflow-x:auto;
+
+/* ── Section Title ── */
+.section-title{
+  display:flex; justify-content:space-between; align-items:baseline;
+  padding:0 20px; margin:20px 0 8px;
 }
-.tab-btn{
-  flex:1;padding:12px 4px;border:none;background:transparent;
-  color:var(--muted);font-size:12px;font-weight:600;cursor:pointer;
-  transition:all 0.2s;white-space:nowrap;min-width:0;
+.section-title h2{
+  font-family:var(--font-heading);
+  font-size:15px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1.5px; color:var(--text2);
 }
-.tab-btn.active{color:var(--accent);border-bottom:2px solid var(--accent);background:rgba(233,69,96,0.08)}
-.tab-content{display:none;padding:16px}
-.tab-content.active{display:block}
-/* CARDS */
+.section-title .sub{
+  font-size:12px; color:var(--text3); font-weight:500;
+}
+
+/* ── Cards ── */
 .card{
-  background:var(--card);border-radius:var(--radius);padding:16px;
-  margin-bottom:12px;border:1px solid rgba(255,255,255,0.05);
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 18px;
+  margin:0 16px 8px;
 }
-.card h3{font-size:15px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.card h3 .cal{font-size:11px;color:var(--muted);font-weight:400}
-/* MEAL ITEMS */
+
+/* ── Meal Item ── */
 .meal-item{
-  padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);
+  display:flex; align-items:center; gap:12px;
+  padding:14px 0; border-bottom:1px solid var(--border);
   cursor:pointer;
 }
-.meal-item:last-child{border:none}
-.meal-item .top{
-  display:flex;justify-content:space-between;align-items:center;
+.meal-item:last-child{border-bottom:none; padding-bottom:0;}
+.meal-item:first-child{padding-top:0;}
+
+.meal-dot{
+  width:8px; height:8px; border-radius:50%; flex-shrink:0;
+  background:var(--text3); transition:all 0.2s;
 }
-.meal-item .name{font-size:14px;font-weight:600}
-.meal-item .meta{font-size:11px;color:var(--muted);margin-top:2px}
-.meal-item .check{
-  width:22px;height:22px;border-radius:50%;border:2px solid var(--muted);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  transition:all 0.2s;font-size:12px;cursor:pointer;
+.meal-item.done .meal-dot{background:var(--green)}
+
+.meal-info{flex:1; min-width:0}
+.meal-info .name{
+  font-size:14px; font-weight:600; color:var(--text);
+  line-height:1.3;
 }
-.meal-item .check.done{border-color:var(--green);background:var(--green);color:#fff}
-/* RECIPE (expandable) */
-.recipe{
-  max-height:0;overflow:hidden;transition:max-height 0.3s;
-  background:rgba(0,0,0,0.2);border-radius:8px;margin-top:6px;
+.meal-info .meta{
+  font-size:12px; color:var(--text3); margin-top:2px;
 }
-.recipe.open{max-height:2000px;padding:12px}
-.recipe h4{font-size:13px;color:var(--accent2);margin-bottom:6px}
-.recipe ul{margin:0;padding-left:18px}
-.recipe li{font-size:12px;color:var(--muted);margin-bottom:4px;line-height:1.4}
-.recipe .tip{font-size:11px;color:var(--accent2);margin-top:6px;font-style:italic}
-/* WORKOUT */
-.workout-day{
-  background:var(--card2);border-radius:var(--radius);padding:14px;margin-bottom:8px;
+
+.meal-check{
+  width:22px; height:22px; border-radius:50%;
+  border:1.5px solid var(--text3); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  transition:all 0.2s; font-size:11px; color:transparent;
 }
-.workout-day h4{font-size:14px;font-weight:700;color:var(--accent2);margin-bottom:8px}
-.workout-ex{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:6px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,0.04);
+.meal-item.done .meal-check{
+  border-color:var(--green); background:var(--green); color:#000;
 }
-.workout-ex:last-child{border:none}
-.workout-ex .reps{color:var(--muted);font-size:11px}
-.workout-ex .ck{
-  width:18px;height:18px;border-radius:4px;border:2px solid var(--muted);
-  cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;font-size:10px;flex-shrink:0;
+
+/* Recipe expandable */
+.recipe-wrap{
+  max-height:0; overflow:hidden; transition:max-height 0.35s ease;
+  background:var(--surface2); border-radius:var(--radius-sm);
+  margin-top:0;
 }
-.workout-ex .ck.done{border-color:var(--green);background:var(--green);color:#fff}
-/* WATER TRACKER */
-.water-grid{
-  display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;
+.recipe-wrap.open{max-height:600px; margin-top:10px; padding:14px;}
+.recipe-wrap h4{
+  font-family:var(--font-heading); font-size:13px;
+  text-transform:uppercase; letter-spacing:1px;
+  color:var(--text2); margin-bottom:6px;
 }
+.recipe-wrap ul{padding-left:16px; list-style:disc}
+.recipe-wrap li{
+  font-size:12px; color:var(--text2); line-height:1.6;
+  margin-bottom:2px;
+}
+.recipe-wrap .tip{
+  font-size:11px; color:var(--accent2); margin-top:8px;
+  font-style:italic;
+}
+
+/* ── Stats Row ── */
+.stats-row{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+  margin:0 16px 8px;
+}
+.stat-box{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:10px 6px;
+  text-align:center;
+}
+.stat-box .num{
+  font-family:var(--font-heading); font-size:22px; font-weight:700;
+  color:var(--text); line-height:1.1;
+}
+.stat-box .label{
+  font-size:9px; color:var(--text3); text-transform:uppercase;
+  letter-spacing:0.8px; margin-top:3px; font-weight:500;
+}
+.stat-box .num.green{color:var(--green)}
+.stat-box .num.accent{color:var(--accent2)}
+
+/* ── Water Grid ── */
+.water-row{display:flex; gap:6px; padding:10px 0 0; flex-wrap:wrap}
 .water-cup{
-  width:36px;height:36px;border-radius:8px;border:2px solid rgba(255,255,255,0.1);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;cursor:pointer;transition:all 0.2s;
+  width:38px; height:38px; border-radius:6px;
+  border:1.5px solid var(--border); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; color:var(--text3); cursor:pointer;
+  transition:all 0.2s;
 }
-.water-cup.filled{background:rgba(46,204,113,0.3);border-color:var(--green)}
-.water-cup.today{animation:waterPulse 2s infinite}
-@keyframes waterPulse{0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,0.4)}50%{box-shadow:0 0 0 6px rgba(46,204,113,0)}}
-/* WEIGHT LOG */
-.weight-input{
-  display:flex;gap:8px;margin-bottom:12px;
+.water-cup.done{
+  border-color:var(--green); background:rgba(34,197,94,0.08);
+  color:var(--green);
 }
-.weight-input input{
-  flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);
-  border-radius:8px;padding:10px 12px;color:#fff;font-size:16px;
+.water-label{font-size:11px; color:var(--text3); margin-top:6px}
+
+/* ── Workout ── */
+.workout-card{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 16px;
+  margin:0 16px 6px;
 }
-.weight-input input::placeholder{color:var(--muted)}
-.weight-input button{
-  background:var(--accent);border:none;border-radius:8px;padding:10px 16px;
-  color:#fff;font-weight:700;font-size:14px;cursor:pointer;
+.workout-card h3{
+  font-family:var(--font-heading); font-size:13px;
+  text-transform:uppercase; letter-spacing:1.5px;
+  color:var(--text2); margin-bottom:8px;
 }
-.entry{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.entry .date{color:var(--muted)}
-.entry .val{font-weight:600}
-.entry .diff{font-size:11px;margin-left:6px}
-.entry .diff.loss{color:var(--green)}
-.entry .diff.gain{color:var(--accent)}
-/* RECIPES TAB */
-.recipe-card{
-  background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:10px;
-  cursor:pointer;border:1px solid rgba(255,255,255,0.05);
+.workout-ex{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px 0; border-bottom:1px solid var(--border);
+  font-size:13px; line-height:1.3;
 }
-.recipe-card h4{font-size:14px;font-weight:700;margin-bottom:4px}
-.recipe-card .time{font-size:11px;color:var(--accent2);font-weight:600}
-.recipe-card .preview{font-size:12px;color:var(--muted);margin-top:4px}
-.recipe-card .ingredients,.recipe-card .steps{max-height:0;overflow:hidden;transition:max-height 0.3s}
-.recipe-card .ingredients.open,.recipe-card .steps.open{max-height:2000px;padding-top:10px}
-.recipe-card .badge-cal{
-  display:inline-block;background:rgba(233,69,96,0.2);color:var(--accent);
-  padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;
+.workout-ex:last-child{border-bottom:none}
+.workout-ex .ex-name{color:var(--text); font-weight:500}
+.workout-ex .ex-reps{color:var(--text3); font-size:12px}
+.workout-ex .ex-ck{
+  width:20px; height:20px; border-radius:4px;
+  border:1.5px solid var(--text3); flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all 0.2s; font-size:10px; color:transparent;
 }
-/* DAY SELECTOR */
-.day-selector{display:flex;gap:4px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px}
-.day-btn{
-  padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,0.1);
-  background:transparent;color:var(--muted);font-size:11px;font-weight:600;
-  cursor:pointer;white-space:nowrap;transition:all 0.2s;
+.workout-ex.done .ex-ck{
+  border-color:var(--green); background:var(--green); color:#000;
 }
-.day-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.day-btn.today{font-weight:800;border-color:var(--accent2);color:var(--accent2)}
-/* BOTTOM SPACER */
-.bottom-spacer{height:20px}
-/* RESPONSIVE */
-@media(max-width:380px){
-  .header h1{font-size:18px}
-  .tab-btn{font-size:11px;padding:10px 2px}
+
+/* ── Tabs ── */
+.tabbar{
+  position:fixed; bottom:0; left:0; right:0;
+  background:rgba(10,10,10,0.92); backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  display:flex; justify-content:space-around; padding:8px 0 calc(8px + var(--safe-bottom));
+  max-width:430px; margin:0 auto; z-index:100;
 }
+.tab-btn{
+  border:none; background:none; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:4px 12px; min-width:0;
+}
+.tab-btn .icon{
+  width:22px; height:22px; display:flex; align-items:center; justify-content:center;
+  font-size:14px; transition:all 0.2s;
+}
+.tab-btn .lbl{
+  font-size:9px; text-transform:uppercase; letter-spacing:0.8px;
+  font-weight:600; color:var(--text3); transition:color 0.2s;
+}
+.tab-btn.active .icon{color:var(--text)}
+.tab-btn.active .lbl{color:var(--text)}
+
+/* ── Tab Content ── */
+.tab-pane{display:none; animation:fadeIn 0.2s ease}
+.tab-pane.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)}}
+
+/* ── Day Selector ── */
+.day-strip{
+  display:flex; gap:4px; margin:0 16px 10px; overflow-x:auto;
+  scrollbar-width:none; -ms-overflow-style:none;
+}
+.day-strip::-webkit-scrollbar{display:none}
+.day-strip .day-pill{
+  padding:6px 12px; border-radius:6px; border:1px solid var(--border);
+  font-size:11px; font-weight:600; color:var(--text3);
+  cursor:pointer; white-space:nowrap; background:var(--surface);
+  transition:all 0.15s;
+}
+.day-strip .day-pill.active{background:var(--text); color:var(--bg); border-color:var(--text)}
+.day-strip .day-pill.today{color:var(--text2); border-color:var(--text2)}
+
+/* ── Weight Input ── */
+.w-input{display:flex; gap:8px; margin-bottom:12px}
+.w-input input{
+  flex:1; background:var(--surface2); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:10px 12px;
+  color:var(--text); font-size:16px; font-weight:600; outline:none;
+  font-family:var(--font);
+}
+.w-input input:focus{border-color:var(--text)}
+.w-input input::placeholder{color:var(--text3); font-weight:400}
+.w-input button{
+  background:var(--text); color:var(--bg); border:none;
+  border-radius:var(--radius-sm); padding:10px 16px;
+  font-weight:700; font-size:13px; cursor:pointer;
+  font-family:var(--font);
+}
+
+.entry-row{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+.entry-row:last-child{border-bottom:none}
+.entry-row .d{color:var(--text3)}
+.entry-row .v{font-weight:600; color:var(--text)}
+.entry-row .diff{margin-left:6px; font-size:12px; font-weight:600}
+.entry-row .diff.down{color:var(--green)}
+.entry-row .diff.up{color:var(--red)}
+
+/* ── Recipe Filter ── */
+.filter-strip{
+  display:flex; gap:4px; margin:0 16px 10px; overflow-x:auto;
+  scrollbar-width:none;
+}
+.filter-strip::-webkit-scrollbar{display:none}
+.filter-strip .flt{
+  padding:6px 12px; border-radius:6px; border:1px solid var(--border);
+  font-size:11px; font-weight:600; color:var(--text3);
+  cursor:pointer; white-space:nowrap; background:var(--surface);
+  transition:all 0.15s;
+}
+.filter-strip .flt.active{background:var(--text); color:var(--bg); border-color:var(--text)}
+
+/* Recipe cards in tab */
+.r-card{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--radius); padding:14px 16px; margin:0 16px 8px;
+  cursor:pointer; transition:all 0.15s;
+}
+.r-card:active{background:var(--surface2)}
+.r-card .top{
+  display:flex; justify-content:space-between; align-items:flex-start;
+}
+.r-card h4{font-size:14px; font-weight:600; color:var(--text)}
+.r-card .tags{
+  display:flex; gap:4px; margin-top:4px; flex-wrap:wrap;
+}
+.r-card .tag{
+  font-size:10px; padding:2px 8px; border-radius:4px;
+  background:var(--surface2); color:var(--text3); font-weight:500;
+  border:1px solid var(--border);
+}
+.r-card .arrow{font-size:16px; color:var(--text3); margin-left:8px; flex-shrink:0}
+.r-card .detail{
+  max-height:0; overflow:hidden; transition:max-height 0.3s;
+}
+.r-card.open .detail{max-height:600px; padding-top:12px}
+.r-card .detail h5{
+  font-size:11px; text-transform:uppercase; letter-spacing:1px;
+  color:var(--text2); margin-bottom:6px; font-weight:600;
+}
+.r-card .detail ul{padding-left:16px; list-style:disc}
+.r-card .detail li{font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:3px}
+.r-card .detail .tip{
+  font-size:11px; color:var(--accent2); margin-top:8px; font-style:italic;
+}
+
+/* ── Workout Tab ── */
+.notes-ta{
+  width:100%; background:var(--surface2); border:1px solid var(--border);
+  border-radius:var(--radius-sm); padding:10px 12px;
+  color:var(--text); font-size:13px; min-height:60px; resize:vertical;
+  font-family:var(--font); outline:none;
+}
+.notes-ta:focus{border-color:var(--text2)}
+.notes-ta::placeholder{color:var(--text3)}
+
+/* ── Misc ── */
+.empty-state{
+  padding:24px; text-align:center; font-size:13px; color:var(--text3);
+  background:var(--surface); border-radius:var(--radius);
+  margin:0 16px; border:1px solid var(--border);
+}
+.center{text-align:center}
+
+.bot-space{height:20px}
 </style>
 </head>
 <body>
 
-<div class="header">
-  <h1>🏋️ 24-Week Transformation</h1>
-  <div class="sub" id="phaseLabel">Phase 1: Foundation (Weeks 1-8)</div>
+<!-- ═══ TOP BAR ═══ -->
+<div class="topbar">
+  <div>
+    <h1>Transformation</h1>
+    <div class="meta">Phase <span id="phaseNum">1</span> &middot; Week <span id="weekNum">1</span></div>
+  </div>
   <div class="badge" id="dayBadge">Day 1</div>
-  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:4%"></div></div>
 </div>
 
-<div class="tabs">
-  <button class="tab-btn active" data-tab="today">Today</button>
-  <button class="tab-btn" data-tab="workout">Workout</button>
-  <button class="tab-btn" data-tab="progress">Progress</button>
-  <button class="tab-btn" data-tab="recipes">Recipes</button>
+<!-- ═══ TABS ═══ -->
+<div class="tab-pane active" id="pane-today">
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box"><div class="num" id="sStart">102</div><div class="label">Start</div></div>
+    <div class="stat-box"><div class="num" id="sCurrent">102</div><div class="label">Current</div></div>
+    <div class="stat-box"><div class="num green" id="sLost">0</div><div class="label">Lost</div></div>
+    <div class="stat-box"><div class="num accent" id="sTarget">80</div><div class="label">Target</div></div>
+  </div>
+
+  <!-- Meals -->
+  <div class="section-title"><h2>Today's Meals</h2><div class="sub"><span id="calEaten">0</span>/<span id="calTarget">1500</span></div></div>
+  <div class="card" id="mealsContainer"></div>
+
+  <!-- Water -->
+  <div class="section-title"><h2>Water</h2><div class="sub"><span id="waterCount">0</span>/8 cups</div></div>
+  <div class="card">
+    <div class="water-row" id="waterGrid"></div>
+  </div>
+
+  <!-- Workout Today -->
+  <div class="section-title"><h2>Today's Workout</h2></div>
+  <div id="todayWorkout"></div>
 </div>
 
-<!-- TODAY TAB -->
-<div class="tab-content active" id="tab-today">
-  <div class="card">
-    <h3>📋 Today's Meals <span class="cal" id="todayCals">0/1500 cal</span></h3>
-    <div id="todayMeals"></div>
-  </div>
-  <div class="card">
-    <h3>💧 Water (2L target)</h3>
-    <div class="water-grid" id="waterGrid"></div>
-    <div style="font-size:12px;color:var(--muted);margin-top:6px" id="waterCount">0/8 cups</div>
-  </div>
-  <div class="card">
-    <h3>⚡ Today's Workout</h3>
-    <div id="todayWorkout"><p style="font-size:13px;color:var(--muted)">Rest day — walk 10K steps</p></div>
-  </div>
-</div>
-
-<!-- WORKOUT TAB -->
-<div class="tab-content" id="tab-workout">
-  <div class="day-selector" id="daySelector"></div>
+<div class="tab-pane" id="pane-workout">
+  <div class="section-title"><h2>Workout</h2><div class="sub" id="workoutDayLabel">Monday</div></div>
+  <div class="day-strip" id="dayStrip"></div>
   <div id="workoutDetail"></div>
+  <div class="section-title"><h2>Notes</h2></div>
   <div class="card">
-    <h3>📝 Workout Notes</h3>
-    <textarea id="workoutNotes" placeholder="How did it feel? What weights did you use?" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:#fff;font-size:13px;min-height:60px;resize:vertical;font-family:inherit"></textarea>
+    <textarea class="notes-ta" id="workoutNotes" placeholder="How did it feel? What weights?"></textarea>
   </div>
 </div>
 
-<!-- PROGRESS TAB -->
-<div class="tab-content" id="tab-progress">
+<div class="tab-pane" id="pane-progress">
+  <div class="section-title"><h2>Weight Log</h2></div>
   <div class="card">
-    <h3>⚖️ Log Weight</h3>
-    <div class="weight-input">
+    <div class="w-input">
       <input type="number" id="weightInput" placeholder="kg" step="0.1">
       <button onclick="logWeight()">Log</button>
     </div>
     <div id="weightLog"></div>
   </div>
+  <div class="section-title"><h2>Weekly Check</h2></div>
   <div class="card">
-    <h3>📊 Stats</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-      <div style="background:var(--card2);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:24px;font-weight:800" id="statStart">102</div>
-        <div style="font-size:11px;color:var(--muted)">Start (kg)</div>
-      </div>
-      <div style="background:var(--card2);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:24px;font-weight:800" id="statCurrent">102</div>
-        <div style="font-size:11px;color:var(--muted)">Current (kg)</div>
-      </div>
-      <div style="background:var(--card2);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:var(--green)" id="statLost">0</div>
-        <div style="font-size:11px;color:var(--muted)">Lost (kg)</div>
-      </div>
-      <div style="background:var(--card2);border-radius:8px;padding:12px;text-align:center">
-        <div style="font-size:24px;font-weight:800;color:var(--accent2)" id="statTarget">80</div>
-        <div style="font-size:11px;color:var(--muted)">Target (kg)</div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <h3>🎯 Weekly Check-In</h3>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <span class="day-btn" style="pointer-events:none">✅ 1500 cal</span>
-      <span class="day-btn" style="pointer-events:none">💪 180g protein</span>
-      <span class="day-btn" style="pointer-events:none">🏃 10K steps</span>
-      <span class="day-btn" style="pointer-events:none">😴 8hr sleep</span>
+      <span class="tag" style="pointer-events:none">1,500 cal</span>
+      <span class="tag" style="pointer-events:none">180g protein</span>
+      <span class="tag" style="pointer-events:none">10K steps</span>
+      <span class="tag" style="pointer-events:none">8hr sleep</span>
+      <span class="tag" style="pointer-events:none">Progress photo</span>
     </div>
   </div>
 </div>
 
-<!-- RECIPES TAB -->
-<div class="tab-content" id="tab-recipes">
-  <div class="day-selector" id="recipeFilter">
-    <button class="day-btn active" data-filter="all">All</button>
-    <button class="day-btn" data-filter="breakfast">Breakfast</button>
-    <button class="day-btn" data-filter="lunch">Lunch</button>
-    <button class="day-btn" data-filter="snack">Snack</button>
-    <button class="day-btn" data-filter="dinner">Dinner</button>
+<div class="tab-pane" id="pane-recipes">
+  <div class="section-title"><h2>Recipes</h2></div>
+  <div class="filter-strip" id="recipeFilter">
+    <span class="flt active" data-f="all">All</span>
+    <span class="flt" data-f="breakfast">Breakfast</span>
+    <span class="flt" data-f="lunch">Lunch</span>
+    <span class="flt" data-f="snack">Snack</span>
+    <span class="flt" data-f="dinner">Dinner</span>
   </div>
   <div id="recipeList"></div>
 </div>
 
+<!-- ═══ TAB BAR ═══ -->
+<div class="tabbar">
+  <button class="tab-btn active" data-tab="today">
+    <span class="icon">&#x25CB;</span>
+    <span class="lbl">Today</span>
+  </button>
+  <button class="tab-btn" data-tab="workout">
+    <span class="icon">&#x25B3;</span>
+    <span class="lbl">Workout</span>
+  </button>
+  <button class="tab-btn" data-tab="progress">
+    <span class="icon">&#x2261;</span>
+    <span class="lbl">Progress</span>
+  </button>
+  <button class="tab-btn" data-tab="recipes">
+    <span class="icon">&#x2713;</span>
+    <span class="lbl">Recipes</span>
+  </button>
+</div>
+
+<div class="bot-space"></div>
+
 <script>
-// ─── DATA ───
-const PHASES = {
-  1: { label: 'Phase 1: Foundation (Weeks 1-8)', cal: 1500, protein: 180 },
-  2: { label: 'Phase 2: The Grind (Weeks 9-16)', cal: 1700, protein: 160 },
-  3: { label: 'Phase 3: The Reveal (Weeks 17-24)', cal: 1800, protein: 150 },
+// ═══ DATA ═══
+const PHASE = {
+  1:{label:'Phase 1: Foundation', cal:1500, protein:180},
+  2:{label:'Phase 2: The Grind', cal:1700, protein:160},
+  3:{label:'Phase 3: The Reveal', cal:1800, protein:150},
+};
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const W = {
+  Monday:    ['Chest + Front Delts', ['Incline DB Press,4x8-10','Flat DB Press,3x10-12','Cable Flys,3x12-15','DB Front Raise,3x12','Pushups,3xfailure']],
+  Tuesday:   ['Back + Rear Delts', ['Pull-ups / Lat Pulldown,4x8-10','Barbell Rows,3x10-12','Seated Cable Rows,3x12','Face Pulls,3x15','Dead Hangs,3x30s']],
+  Wednesday: ['Side Delts + Traps', ['DB Lateral Raises,5x15-20','Cable Lateral Raises,4x12-15','Upright Rows,3x12','DB Shrugs,3x15-20','Lateral Raise Dropset,2xfailure']],
+  Thursday:  ['Arms + Abs', ['Skull Crushers,3x10-12','Tricep Pushdown,3x12-15','Barbell Curls,4x8-10','Hammer Curls,3x10-12','Hanging Leg Raises,3x12-15','Crunches,3x20','Plank,3x45s']],
+  Friday:    ['Legs', ['Squat / Leg Press,4x8-10','RDL,3x10-12','Walking Lunges,3x12/leg','Standing Calf Raises,4x15-20','Seated Calf Raises,3x15']],
+  Saturday:  ['Full Body Pump', ['Lateral Raises,3x15','Incline DB Press,3x12','Pull-ups,3x8','Curls,3x12','Tricep Pushdown,3x12','Leg Raises,3x15']],
+};
+const R = {
+  breakfast:[
+    {n:'Egg White Bhurji',t:'10 min',c:180,p:22,i:'4 egg whites,1 whole egg,1/2 onion,1 tomato,green chilli,turmeric,salt,pepper',s:'Heat pan with 1 tsp oil|Saute onions till golden|Add tomatoes + spices, cook 2 min|Pour beaten eggs, scramble medium|Top with coriander',tip:'Add mushrooms or capsicum for volume'},
+    {n:'Oats + Whey Porridge',t:'5 min',c:350,p:30,i:'40g oats,1 scoop whey,200ml water,1/2 apple,cinnamon',s:'Cook oats in water 3 min|Remove from heat, stir in whey|Top with apple + cinnamon',tip:'Chocolate whey makes this a dessert'},
+    {n:'Boiled Eggs + Salad',t:'10 min',c:280,p:25,i:'4 boiled eggs,cucumber,tomato,onion,lemon,salt,pepper,chaat masala',s:'Boil eggs 7 min, cool, peel|Chop veggies into salad|Squeeze lemon, add spices',tip:'Prep eggs night before. Grab + go.'},
+    {n:'Veggie Egg Scramble',t:'8 min',c:300,p:28,i:'4 egg whites + 1 whole egg,bell peppers,spinach,onion,garlic,salt,pepper',s:'Saute garlic + onion in 1 tsp oil|Add bell peppers 2 min|Add spinach until wilted|Pour eggs, scramble',tip:'Frozen mixed veggies = cheaper + no prep'}
+  ],
+  lunch:[
+    {n:'Basic Chicken + Rice',t:'25 min',c:480,p:48,i:'150g chicken breast,1/2 cup rice,sabzi,salt,pepper,garlic,lemon',s:'Marinate chicken with salt+pepper+garlic+lemon 10 min|Cook rice 12 min|Grill chicken 5 min each side|Serve with rice + sabzi + salad',tip:'Cook 3 days of chicken at once'},
+    {n:'Soya Chunks Curry',t:'20 min',c:350,p:48,i:'80g soya chunks dry,1 onion,2 tomatoes,garlic,ginger,jeera,haldi,dhaniya,salt',s:'Soak soya in hot water 10 min, squeeze dry|Saute onion+garlic+ginger in 1 tsp oil|Add tomato+spices, cook 5 min|Add soya + water, simmer 8 min',tip:'Cheapest protein in India. Rs 150/kg for 520g protein!'},
+    {n:'Hostel Mess Hack',t:'0 min',c:450,p:35,i:'1 roti,double dal,salad,100g curd',s:'Skip rice and aloo sabzi|Take only 1 roti|Take DOUBLE dal|Big salad + curd|No sweets',tip:'Grab 2 boiled eggs if mess has them'},
+    {n:'Tandoori Chicken Bowl',t:'30 min',c:420,p:50,i:'150g chicken,2 tbsp curd,tandoori masala,lemon,salt,1/2 cup rice,salad',s:'Mix curd+tandoori masala+salt+lemon|Marinate chicken 15+ min|Grill/bake 15 min|Serve with rice + salad',tip:'Tandoori masala packet: Rs 20, lasts a month'}
+  ],
+  snack:[
+    {n:'Classic Whey Shake',t:'2 min',c:120,p:25,i:'1 scoop whey,300ml water',s:'Add water to shaker|Add 1 scoop whey|Shake 15 sec|Drink',tip:'Chocolate whey + black coffee = mocha. Game changer.'},
+    {n:'Curd + Cucumber',t:'2 min',c:80,p:5,i:'100g curd,1 cucumber,salt,pepper,chaat masala',s:'Dice cucumber|Mix with curd|Add spices|Done',tip:'Great for gut health + cooling in Indian summer'},
+    {n:'Roasted Makhana',t:'5 min',c:150,p:6,i:'30g makhana,1 tsp ghee,salt,pepper,chaat masala',s:'Heat ghee in pan|Add makhana, roast 4 min low-medium|Add spices while stirring|Cool 2 min',tip:'Beats chips. 150 cal vs 500+ for same volume.'},
+    {n:'Fruit + Curd Bowl',t:'3 min',c:160,p:8,i:'1 apple,100g curd,pinch cinnamon',s:'Chop fruit into cubes|Mix with curd|Sprinkle cinnamon|Done',tip:'Skip bananas. Apple, papaya, or berries are best.'}
+  ],
+  dinner:[
+    {n:'Grilled Chicken + Salad',t:'20 min',c:450,p:55,i:'200g chicken breast,salt,pepper,garlic,lemon,salad veggies',s:'Season chicken with salt+pepper+garlic+lemon|Grill 6 min each side|Chop big salad|Dress with lemon+salt',tip:'Make extra at lunch, eat cold at dinner'},
+    {n:'4-Egg Omelette + Veggies',t:'10 min',c:380,p:40,i:'4 whole eggs,onion,tomato,green chilli,bell pepper,salt,pepper,1 tsp oil',s:'Beat eggs with salt+pepper|Saute veggies 2 min|Pour eggs over veggies|Cook medium, flip when set|Serve with salad',tip:'You can have all 4 yolks at 102kg. Dont waste them.'},
+    {n:'Soya Chunks Stir-Fry',t:'15 min',c:320,p:45,i:'80g soya chunks dry,1 onion,capsicum,garlic,soya sauce,chilli,salt,pepper',s:'Rehydrate soya 10 min, squeeze dry|Stir-fry garlic+onion 2 min|Add capsicum+soya|Add soya sauce+spices|High heat 3 min',tip:'Indian chow mein without noodles. Filling + protein bomb.'},
+    {n:'Fish Tikka + Salad',t:'25 min',c:380,p:50,i:'200g fish,2 tbsp curd,tikka masala,lemon,salt,salad',s:'Mix curd+tikka masala+lemon+salt|Coat fish, rest 15 min|Grill/bake 12 min|Serve with lemon+salad',tip:'Basa is cheapest. Mackerel has omega-3s too.'}
+  ]
 };
 
-const WORKOUTS = {
-  'Monday': {
-    name: 'Chest + Front Delts',
-    exercises: [
-      ['Incline DB Press', '4x8-10'],
-      ['Flat DB Press', '3x10-12'],
-      ['Cable Flys', '3x12-15'],
-      ['DB Front Raise', '3x12'],
-      ['Pushups', '3xfailure'],
-    ]
-  },
-  'Tuesday': {
-    name: 'Back + Rear Delts',
-    exercises: [
-      ['Pull-ups / Lat Pulldown', '4x8-10'],
-      ['Barbell Rows', '3x10-12'],
-      ['Seated Cable Rows', '3x12'],
-      ['Face Pulls', '3x15'],
-      ['Dead Hangs', '3x30s'],
-    ]
-  },
-  'Wednesday': {
-    name: 'Side Delts + Traps',
-    exercises: [
-      ['DB Lateral Raises', '5x15-20'],
-      ['Cable Lateral Raises', '4x12-15'],
-      ['Upright Rows (wide)', '3x12'],
-      ['DB Shrugs', '3x15-20'],
-      ['Lateral Raise Dropset', '2xfailure'],
-    ]
-  },
-  'Thursday': {
-    name: 'Arms + Abs',
-    exercises: [
-      ['Skull Crushers', '3x10-12'],
-      ['Tricep Pushdown', '3x12-15'],
-      ['Barbell Curls', '4x8-10'],
-      ['Hammer Curls', '3x10-12'],
-      ['Hanging Leg Raises', '3x12-15'],
-      ['Crunches', '3x20'],
-      ['Plank', '3x45-60s'],
-    ]
-  },
-  'Friday': {
-    name: 'Legs',
-    exercises: [
-      ['Squat / Leg Press', '4x8-10'],
-      ['RDL', '3x10-12'],
-      ['Walking Lunges', '3x12/leg'],
-      ['Standing Calf Raises', '4x15-20'],
-      ['Seated Calf Raises', '3x15'],
-    ]
-  },
-  'Saturday': {
-    name: 'Full Body Pump',
-    exercises: [
-      ['Lateral Raises', '3x15'],
-      ['Incline DB Press', '3x12'],
-      ['Pull-ups', '3x8'],
-      ['Curls', '3x12'],
-      ['Tricep Pushdown', '3x12'],
-      ['Leg Raises', '3x15'],
-    ]
-  },
-};
-
-const RECIPES = {
-  breakfast: [
-    { name: 'Egg White Bhurji', time: '10 min', cal: 180, protein: 22,
-      ingredients: '4 egg whites, 1 whole egg, 1/2 onion (diced), 1 tomato, green chilli, turmeric, salt, pepper, coriander',
-      steps: '1. Heat pan with 1 tsp oil\n2. Saute onions till golden\n3. Add tomatoes + spices, cook 2 min\n4. Pour beaten eggs, scramble on medium\n5. Top with coriander. Serve with salad.',
-      tip: 'Add mushrooms or capsicum for volume without calories' },
-    { name: 'Oats + Whey Porridge', time: '5 min', cal: 350, protein: 30,
-      ingredients: '40g oats, 1 scoop whey, 200ml water/milk, 1/2 apple (chopped), cinnamon',
-      steps: '1. Cook oats in water 3 min\n2. Remove from heat, stir in whey\n3. Top with apple + cinnamon\n4. Add stevia if needed (not sugar!)',
-      tip: 'Use chocolate whey for a dessert-like breakfast' },
-    { name: 'Boiled Eggs + Salad', time: '10 min', cal: 280, protein: 25,
-      ingredients: '4 boiled eggs, cucumber, tomato, onion, lemon, salt, pepper, chaat masala',
-      steps: '1. Boil eggs 7 min, cool, peel, halve\n2. Chop veggies into salad\n3. Squeeze lemon, add spices\n4. Eat eggs + salad together',
-      tip: 'Prep eggs the night before. Grab + go in the morning.' },
-    { name: 'Veggie Egg Scramble', time: '8 min', cal: 300, protein: 28,
-      ingredients: '4 egg whites + 1 whole egg, bell peppers, spinach, onion, garlic, salt, pepper',
-      steps: '1. Saute garlic + onion in 1 tsp oil\n2. Add bell peppers, cook 2 min\n3. Add spinach, wilt\n4. Pour eggs, scramble, done!',
-      tip: 'Buy frozen mixed veggies — cheaper + no prep' },
-  ],
-  lunch: [
-    { name: 'Basic Chicken + Rice', time: '25 min', cal: 480, protein: 48,
-      ingredients: '150g chicken breast, 1/2 cup rice (raw), sabzi, salt, pepper, garlic, lemon',
-      steps: '1. Marinate chicken with salt, pepper, garlic, lemon (10 min)\n2. Cook rice (1 cup water, simmer 12 min)\n3. Grill chicken in non-stick pan 5 min each side\n4. Serve with rice + any sabzi + salad',
-      tip: 'Cook 3 days of chicken at once. Reheat + go.' },
-    { name: 'Soya Chunks Curry', time: '20 min', cal: 350, protein: 48,
-      ingredients: '80g soya chunks (dry), 1 onion, 2 tomatoes, garlic, ginger, jeera, haldi, dhaniya, red chilli, salt',
-      steps: '1. Soak soya chunks in hot water 10 min. Squeeze out water.\n2. Saute onion + garlic + ginger in 1 tsp oil\n3. Add tomato puree + spices, cook 5 min\n4. Add soya chunks + 1/2 cup water, simmer 8 min\n5. Garnish with coriander. Eat with salad.',
-      tip: 'Cheapest protein in India — Rs 150/kg for 520g protein!' },
-    { name: 'Hostel Mess Hack', time: '0 min', cal: 450, protein: 35,
-      ingredients: '1 roti, double dal, salad, 100g curd, no rice, no aloo sabzi',
-      steps: '1. Go to mess\n2. Take 1 roti (not 2, not 3)\n3. Take DOUBLE dal (extra protein)\n4. Take BIG salad plate\n5. Take 100g curd\n6. SKIP rice, aloo sabzi, sweets',
-      tip: 'If your mess has eggs, grab 2 boiled eggs on the side' },
-    { name: 'Tandoori Chicken Bowl', time: '30 min', cal: 420, protein: 50,
-      ingredients: '150g chicken, 2 tbsp curd, tandoori masala, lemon, salt, 1/2 cup rice, salad',
-      steps: '1. Mix curd + tandoori masala + salt + lemon\n2. Marinate chicken 15+ min\n3. Bake/grill/air fry 15 min\n4. Serve with rice + salad',
-      tip: 'Buy tandoori masala packet — Rs 20, lasts a month' },
-  ],
-  snack: [
-    { name: 'Classic Whey Shake', time: '2 min', cal: 120, protein: 25,
-      ingredients: '1 scoop whey, 300ml water (or cold water)',
-      steps: '1. Add water to shaker\n2. Add 1 scoop whey\n3. Shake 15 sec. Drink.\n4. For taste: add pinch of cinnamon or instant coffee',
-      tip: 'Chocolate whey + black coffee = mocha. Game changer.' },
-    { name: 'Curd + Cucumber', time: '2 min', cal: 80, protein: 5,
-      ingredients: '100g curd, 1 cucumber (diced), salt, pepper, chaat masala',
-      steps: '1. Dice cucumber\n2. Mix with curd\n3. Add spices. Done.',
-      tip: 'Great for gut health + cooling in Indian summers' },
-    { name: 'Roasted Makhana', time: '5 min', cal: 150, protein: 6,
-      ingredients: '30g makhana (fox nuts), 1 tsp ghee, salt, pepper, chaat masala',
-      steps: '1. Heat ghee in pan\n2. Add makhana, roast on low-medium 4 min\n3. Add spices while stirring\n4. Cool 2 min. Crunchy snack ready.',
-      tip: 'Beats chips any day. 150 cal vs 500+ for same volume.' },
-    { name: 'Fruit + Curd Bowl', time: '3 min', cal: 160, protein: 8,
-      ingredients: '1 apple (or seasonal fruit), 100g curd, pinch cinnamon',
-      steps: '1. Chop fruit into cubes\n2. Mix with curd\n3. Sprinkle cinnamon. Done.',
-      tip: 'Skip bananas — too many calories. Apple, papaya, or berries are best.' },
-  ],
-  dinner: [
-    { name: 'Grilled Chicken + Salad', time: '20 min', cal: 450, protein: 55,
-      ingredients: '200g chicken breast, salt, pepper, garlic, lemon, big bowl salad (cucumber, tomato, onion, lettuce)',
-      steps: '1. Season chicken with salt + pepper + garlic + lemon\n2. Grill 6 min each side\n3. Chop big salad\n4. Dress salad with lemon + salt\n5. Eat. No roti. No rice.',
-      tip: 'Make extra at lunch, eat cold at dinner. Tastes great.' },
-    { name: '4-Egg Omelette + Veggies', time: '10 min', cal: 380, protein: 40,
-      ingredients: '4 whole eggs, onion, tomato, green chilli, bell pepper, salt, pepper, 1 tsp oil',
-      steps: '1. Beat eggs with salt + pepper\n2. Saute veggies in oil 2 min\n3. Pour eggs over veggies\n4. Cook on medium, flip when set\n5. Serve with salad.',
-      tip: 'You can have all 4 yolks per day at 102kg. Don\'t waste them.' },
-    { name: 'Soya Chunks Stir-Fry', time: '15 min', cal: 320, protein: 45,
-      ingredients: '80g soya chunks (dry), 1 onion, capsicum, garlic, soya sauce, chilli, salt, pepper',
-      steps: '1. Rehydrate soya chunks (hot water 10 min), squeeze dry\n2. Stir-fry garlic + onion 2 min\n3. Add capsicum + soya chunks\n4. Add soya sauce + spices\n5. High heat 3 min. Done.',
-      tip: 'This is basically "Indian chow mein" without noodles. Filling + protein bomb.' },
-    { name: 'Fish Tikka + Salad', time: '25 min', cal: 380, protein: 50,
-      ingredients: '200g fish (pomfret/basa/mackerel), 2 tbsp curd, tikka masala, lemon, salt, salad',
-      steps: '1. Mix curd + tikka masala + salt + lemon\n2. Coat fish, rest 15 min\n3. Grill/bake 12 min\n4. Serve with lemon + salad',
-      tip: 'Basa is cheapest (~Rs 150/500g). Mackerel has omega-3s too.' },
-  ],
-};
-
-const TODAY = [
-  { time: '8 AM', name: 'Egg White Bhurji', cal: 180, protein: 22, recipe: 'Egg White Bhurji', type: 'breakfast', color: '#f5c518' },
-  { time: '2 PM', name: 'Chicken + Rice Bowl', cal: 480, protein: 48, recipe: 'Basic Chicken + Rice', type: 'lunch', color: '#2ecc71' },
-  { time: '5 PM', name: 'Whey Shake', cal: 120, protein: 25, recipe: 'Classic Whey Shake', type: 'snack', color: '#3498db' },
-  { time: '7 PM', name: 'Curd + Cucumber', cal: 80, protein: 5, recipe: 'Curd + Cucumber', type: 'snack', color: '#9b59b6' },
-  { time: '9 PM', name: 'Grilled Chicken Salad', cal: 450, protein: 55, recipe: 'Grilled Chicken + Salad', type: 'dinner', color: '#e74c3c' },
-];
-
-// ─── STATE ───
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-let state = JSON.parse(localStorage.getItem('transformState') || '{}');
-if (!state.weights) state.weights = [];
-if (!state.water) state.water = 0;
-if (!state.workoutDone) state.workoutDone = [];
-if (!state.mealsDone) state.mealsDone = [];
-if (!state.waterDate) state.waterDate = '';
-if (!state.startDate) state.startDate = new Date().toISOString().split('T')[0];
-
-function getTodayKey(){return new Date().toISOString().split('T')[0]}
-function getDayName(){return DAYS[new Date().getDay()]}
-
-function getWeekNumber(){
-  const start = new Date(state.startDate);
-  const today = new Date();
-  const diff = Math.floor((today - start) / (7*24*60*60*1000));
-  return Math.max(0, Math.min(23, diff));
+// Today's meal plan (rotates daily)
+function getTodayMeals(dayOffset){
+  const plans = [
+    [
+      {t:'8 AM',n:'Egg White Bhurji',c:180,p:22,r:'Egg White Bhurji',col:'#888'},
+      {t:'2 PM',n:'Chicken + Rice Bowl',c:480,p:48,r:'Basic Chicken + Rice',col:'#888'},
+      {t:'5 PM',n:'Whey Shake',c:120,p:25,r:'Classic Whey Shake',col:'#888'},
+      {t:'7 PM',n:'Curd + Cucumber',c:80,p:5,r:'Curd + Cucumber',col:'#888'},
+      {t:'9 PM',n:'Grilled Chicken Salad',c:450,p:55,r:'Grilled Chicken + Salad',col:'#888'},
+    ],
+    [
+      {t:'8 AM',n:'Boiled Eggs + Salad',c:280,p:25,r:'Boiled Eggs + Salad',col:'#888'},
+      {t:'2 PM',n:'Soya Chunks Curry',c:350,p:48,r:'Soya Chunks Curry',col:'#888'},
+      {t:'5 PM',n:'Whey Shake',c:120,p:25,r:'Classic Whey Shake',col:'#888'},
+      {t:'7 PM',n:'Roasted Makhana',c:150,p:6,r:'Roasted Makhana',col:'#888'},
+      {t:'9 PM',n:'4-Egg Omelette',c:380,p:40,r:'4-Egg Omelette + Veggies',col:'#888'},
+    ],
+    [
+      {t:'8 AM',n:'Oats + Whey Porridge',c:350,p:30,r:'Oats + Whey Porridge',col:'#888'},
+      {t:'2 PM',n:'Tandoori Chicken Bowl',c:420,p:50,r:'Tandoori Chicken Bowl',col:'#888'},
+      {t:'5 PM',n:'Whey Shake',c:120,p:25,r:'Classic Whey Shake',col:'#888'},
+      {t:'7 PM',n:'Fruit + Curd Bowl',c:160,p:8,r:'Fruit + Curd Bowl',col:'#888'},
+      {t:'9 PM',n:'Fish Tikka + Salad',c:380,p:50,r:'Fish Tikka + Salad',col:'#888'},
+    ],
+    [
+      {t:'8 AM',n:'Veggie Egg Scramble',c:300,p:28,r:'Veggie Egg Scramble',col:'#888'},
+      {t:'2 PM',n:'Hostel Mess Hack',c:450,p:35,r:'Hostel Mess Hack',col:'#888'},
+      {t:'5 PM',n:'Whey Shake',c:120,p:25,r:'Classic Whey Shake',col:'#888'},
+      {t:'7 PM',n:'Curd + Cucumber',c:80,p:5,r:'Curd + Cucumber',col:'#888'},
+      {t:'9 PM',n:'Soya Chunks Stir-Fry',c:320,p:45,r:'Soya Chunks Stir-Fry',col:'#888'},
+    ],
+  ];
+  return plans[(dayOffset + 7) % plans.length];
 }
 
-function getPhase(){
-  const w = getWeekNumber();
-  if(w < 8) return 1;
-  if(w < 16) return 2;
-  return 3;
+// ═══ STATE ═══
+let state = JSON.parse(localStorage.getItem('tState') || '{}');
+if(!state.w) state.w = [];
+if(!state.water) state.water = 0;
+if(!state.waterDate) state.waterDate = '';
+if(!state.doneEx) state.doneEx = [];
+if(!state.doneMeals) state.doneMeals = [];
+if(!state.start) state.start = new Date().toISOString().slice(0,10);
+if(!state.notes) state.notes = {};
+
+function tk(){return new Date().toISOString().slice(0,10)}
+function dn(){return DAYS[new Date().getDay()]}
+function wn(){
+  const d = Math.floor((new Date() - new Date(state.start)) / 86400000);
+  return Math.max(0, Math.min(23, Math.floor(d/7)));
+}
+function pn(){return wn() < 8 ? 1 : wn() < 16 ? 2 : 3}
+function dayOfPlan(){
+  return Math.floor((new Date() - new Date(state.start)) / 86400000);
+}
+function save(){localStorage.setItem('tState', JSON.stringify(state))}
+
+// ═══ FIND RECIPE ═══
+function findR(name){
+  for(const cat in R) for(const r of R[cat]) if(r.n === name) return r;
+  return null;
 }
 
-function saveState(){
-  localStorage.setItem('transformState', JSON.stringify(state));
-}
-
-// ─── RENDER: TODAY ───
+// ═══ RENDER TODAY ═══
 function renderToday(){
-  const p = getPhase();
-  const info = PHASES[p];
-  document.getElementById('phaseLabel').textContent = info.label;
-  const dayNum = Math.floor((new Date() - new Date(state.startDate)) / (24*60*60*1000)) + 1;
-  document.getElementById('dayBadge').textContent = `Day ${Math.max(1, dayNum)}`;
-  document.getElementById('progressFill').style.width = `${Math.min(100, (dayNum/168)*100)}%`;
+  const phase = pn();
+  const info = PHASE[phase];
+  const dNum = dayOfPlan() + 1;
+  document.getElementById('phaseNum').textContent = phase;
+  document.getElementById('weekNum').textContent = wn() + 1;
+  document.getElementById('dayBadge').textContent = 'Day ' + Math.max(1,dNum);
 
-  const todayKey = getTodayKey();
-  if(state.waterDate !== todayKey){ state.water = 0; state.waterDate = todayKey }
+  const tdy = tk();
+  if(state.waterDate !== tdy){state.water=0; state.waterDate=tdy; save()}
+
+  // Stats
+  const sorted = [...state.w].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const cur = sorted.length ? sorted[sorted.length-1].v : 102;
+  const start = sorted.length ? sorted[0].v : 102;
+  const lost = (start - cur).toFixed(1);
+  document.getElementById('sStart').textContent = start;
+  document.getElementById('sCurrent').textContent = cur;
+  document.getElementById('sLost').textContent = lost > 0 ? lost : '0';
 
   // Meals
-  let mealsHtml = '';
-  let totalCals = 0;
-  TODAY.forEach((m, i) => {
-    const done = state.mealsDone.includes(i);
-    if(done) totalCals += m.cal;
-    const rec = findRecipe(m.recipe);
-    mealsHtml += `
-      <div class="meal-item" onclick="toggleMeal(${i})">
-        <div class="top">
-          <div>
-            <div class="name"><span style="color:${m.color}">●</span> ${m.name}</div>
-            <div class="meta">${m.time} · ${m.cal} cal · ${m.protein}g protein</div>
-          </div>
-          <div class="check ${done?'done':''}">${done?'✓':''}</div>
-        </div>
-        <div class="recipe ${done?'open':''}">
-          ${rec ? `<h4>${rec.name} (${rec.time})</h4>
-          <ul>${rec.steps.split('\n').map(s=>`<li>${s.replace(/^\d+\.\s*/,'')}</li>`).join('')}</ul>
-          <div class="tip">💡 ${rec.tip}</div>` : ''}
-        </div>
-      </div>`;
+  const meals = getTodayMeals(dNum);
+  document.getElementById('calTarget').textContent = info.cal;
+  let mh = '', totC = 0;
+  meals.forEach((m,i)=>{
+    const done = state.doneMeals.includes(i+'-'+tdy);
+    if(done) totC += m.c;
+    const r = findR(m.r);
+    mh += `<div class="meal-item${done?' done':''}" onclick="togMeal(${i})">
+      <div class="meal-dot"></div>
+      <div class="meal-info">
+        <div class="name">${m.n}</div>
+        <div class="meta">${m.t} &middot; ${m.c} cal &middot; ${m.p}g protein</div>
+      </div>
+      <div class="meal-check">${done?'&#x2713;':''}</div>
+    </div>
+    <div class="recipe-wrap${done?' open':''}">
+      ${r ? `<h4>${r.n} (${r.t})</h4>
+      <ul>${r.s.split('|').map(s=>'<li>'+s+'</li>').join('')}</ul>
+      <div class="tip">${r.tip}</div>` : ''}
+    </div>`;
   });
-  document.getElementById('todayMeals').innerHTML = mealsHtml;
-  document.getElementById('todayCals').textContent = `${totalCals}/${info.cal} cal`;
+  document.getElementById('mealsContainer').innerHTML = mh;
+  document.getElementById('calEaten').textContent = totC;
 
   // Water
-  const filled = state.water || 0;
-  let waterHtml = '';
-  for(let i=0;i<8;i++){
-    waterHtml += `<div class="water-cup ${i<filled?'filled':''}" onclick="toggleWater()">${i<filled?'💧':'💦'}</div>`;
-  }
-  document.getElementById('waterGrid').innerHTML = waterHtml;
-  document.getElementById('waterCount').textContent = `${filled}/8 cups (${filled*250}ml)`;
+  const wc = state.water || 0;
+  document.getElementById('waterCount').textContent = wc;
+  let wh = '';
+  for(let i=0;i<8;i++) wh += `<div class="water-cup${i<wc?' done':''}" onclick="togWater()">${i<wc?'&#x2713;':'&#x2014;'}</div>`;
+  document.getElementById('waterGrid').innerHTML = wh;
 
   // Workout
-  const day = getDayName();
-  const w = WORKOUTS[day];
-  if(w && day !== 'Sunday'){
-    let whtml = `<div class="workout-day"><h4>${day} — ${w.name}</h4>`;
-    w.exercises.forEach((ex, i) => {
-      const key = `${todayKey}-${i}`;
-      const done = state.workoutDone.includes(key);
-      whtml += `<div class="workout-ex"><span>${ex[0]} <span class="reps">${ex[1]}</span></span><div class="ck ${done?'done':''}" onclick="toggleExercise(${i})">${done?'✓':''}</div></div>`;
+  const day = dn();
+  const w = W[day];
+  if(w && day!=='Sunday'){
+    let whtml = `<div class="workout-card"><h3>${day} &middot; ${w[0]}</h3>`;
+    w[1].forEach((ex,i)=>{
+      const key = tdy+'-'+i;
+      const done = state.doneEx.includes(key);
+      whtml += `<div class="workout-ex${done?' done':''}"><span><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togEx(${i})">${done?'&#x2713;':''}</div></div>`;
     });
     whtml += '</div>';
     document.getElementById('todayWorkout').innerHTML = whtml;
   } else {
-    document.getElementById('todayWorkout').innerHTML = '<div class="workout-day"><h4>Rest Day</h4><p style="font-size:13px;color:var(--muted);margin-top:4px">Walk 10K steps. Stretch. Eat clean. Recover.</p></div>';
+    document.getElementById('todayWorkout').innerHTML = '<div class="workout-card"><h3>Rest Day</h3><p style="font-size:13px;color:#555;padding:4px 0">Walk 10K steps. Stretch. Recover.</p></div>';
   }
 }
 
-function toggleMeal(i){
-  const idx = state.mealsDone.indexOf(i);
-  if(idx > -1) state.mealsDone.splice(idx,1);
-  else state.mealsDone.push(i);
-  saveState(); renderToday();
+function togMeal(i){
+  const key = i+'-'+tk();
+  const idx = state.doneMeals.indexOf(key);
+  if(idx>-1) state.doneMeals.splice(idx,1); else state.doneMeals.push(key);
+  save(); renderToday();
+}
+function togWater(){
+  state.water = state.water>=8 ? 0 : state.water+1;
+  if(state.water===1) state.waterDate = tk();
+  save(); renderToday();
+}
+function togEx(i){
+  const key = tk()+'-'+i;
+  const idx = state.doneEx.indexOf(key);
+  if(idx>-1) state.doneEx.splice(idx,1); else state.doneEx.push(key);
+  save(); renderToday();
 }
 
-function toggleWater(){
-  state.water = state.water >= 8 ? 0 : state.water + 1;
-  if(state.water === 1) state.waterDate = getTodayKey();
-  saveState(); renderToday();
-}
-
-function toggleExercise(i){
-  const key = `${getTodayKey()}-${i}`;
-  const idx = state.workoutDone.indexOf(key);
-  if(idx > -1) state.workoutDone.splice(idx,1);
-  else state.workoutDone.push(key);
-  saveState(); renderToday();
-}
-
-// ─── RENDER: WORKOUT TAB ───
-function renderWorkoutTab(){
-  const day = getDayName();
-  // Day selector
+// ═══ RENDER WORKOUT ═══
+function renderWorkout(){
+  const day = dn();
   let dh = '';
-  const daysOrder = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
-  daysOrder.forEach(d => {
-    const act = d === day ? 'active' : '';
-    const td = d === day ? ' today' : '';
-    dh += `<span class="day-btn ${act}${td}" onclick="showWorkoutDay('${d}')">${d.slice(0,3)}</span>`;
+  ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].forEach(d=>{
+    const a = d===day?' active':'';
+    const t = d===day?' today':'';
+    dh += `<span class="day-pill${a}${t}" onclick="showDay('${d}')">${d.slice(0,3)}</span>`;
   });
-  document.getElementById('daySelector').innerHTML = dh;
-  showWorkoutDay(day);
+  document.getElementById('dayStrip').innerHTML = dh;
+  document.getElementById('workoutDayLabel').textContent = day;
+  showDay(day);
+
+  // Notes
+  const nk = tk();
+  document.getElementById('workoutNotes').value = state.notes[nk] || '';
 }
 
-function showWorkoutDay(day){
-  const w = WORKOUTS[day];
+function showDay(day){
+  const w = W[day];
   if(w){
-    const todayKey = getTodayKey();
-    let html = `<div class="workout-day"><h4>${day} — ${w.name}</h4>`;
-    w.exercises.forEach((ex, i) => {
-      const key = `${todayKey}-${i}`;
-      const done = state.workoutDone.includes(key);
-      html += `<div class="workout-ex"><span>${ex[0]} <span class="reps">${ex[1]}</span></span><div class="ck ${done?'done':''}" onclick="toggleWorkoutFromTab('${day}',${i})">${done?'✓':''}</div></div>`;
+    const tdy = tk();
+    let wh = `<div class="workout-card"><h3>${day} &middot; ${w[0]}</h3>`;
+    w[1].forEach((ex,i)=>{
+      const key = tdy+'-'+i;
+      const done = state.doneEx.includes(key);
+      wh += `<div class="workout-ex${done?' done':''}"><span><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togExFromTab('${day}',${i})">${done?'&#x2713;':''}</div></div>`;
     });
-    html += '</div>';
-    document.getElementById('workoutDetail').innerHTML = html;
-  } else if(day === 'Sunday'){
-    document.getElementById('workoutDetail').innerHTML = '<div class="workout-day"><h4>Sunday — Rest Day</h4><p style="font-size:13px;color:var(--muted)">Walk 10K steps. Stretch. Sleep well.</p></div>';
-  }
-  // Update day selector
-  document.querySelectorAll('#daySelector .day-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('#daySelector .day-btn').forEach(b => {if(b.textContent.trim() === day.slice(0,3)) b.classList.add('active')});
-}
-
-function toggleWorkoutFromTab(day, i){
-  const key = `${getTodayKey()}-${i}`;
-  const idx = state.workoutDone.indexOf(key);
-  if(idx > -1) state.workoutDone.splice(idx,1);
-  else state.workoutDone.push(key);
-  saveState(); showWorkoutDay(day);
-}
-
-// ─── RENDER: PROGRESS ───
-function renderProgress(){
-  // Weight log
-  let whtml = '';
-  if(state.weights.length === 0){
-    whtml = '<p style="font-size:13px;color:var(--muted)">No weights logged yet. Start today!</p>';
+    wh += '</div>';
+    document.getElementById('workoutDetail').innerHTML = wh;
   } else {
-    const sorted = [...state.weights].sort((a,b)=>new Date(b.date)-new Date(a.date));
-    sorted.slice(0,14).forEach((w,i)=>{
-      const prev = sorted[i+1];
-      const diff = prev ? (prev.weight - w.weight).toFixed(1) : null;
-      const diffHtml = diff ? (diff > 0 ? `<span class="diff loss">-${diff}</span>` : `<span class="diff gain">+${Math.abs(diff)}</span>`) : '';
-      whtml += `<div class="entry"><span class="date">${w.date}</span><span class="val">${w.weight} kg ${diffHtml}</span></div>`;
-    });
+    document.getElementById('workoutDetail').innerHTML = '<div class="workout-card"><h3>Rest Day</h3><p style="font-size:13px;color:#555;padding:4px 0">Walk 10K steps. Stretch. Sleep well.</p></div>';
   }
-  document.getElementById('weightLog').innerHTML = whtml;
+  document.querySelectorAll('#dayStrip .day-pill').forEach(b=>{b.classList.toggle('active',b.textContent.trim()===day.slice(0,3))});
+}
 
-  // Stats
-  const sorted = [...state.weights].sort((a,b)=>new Date(a.date)-new Date(b.date));
-  const current = sorted.length > 0 ? sorted[sorted.length-1].weight : 102;
-  const start = sorted.length > 0 ? sorted[0].weight : 102;
-  const lost = (start - current).toFixed(1);
-  document.getElementById('statStart').textContent = start;
-  document.getElementById('statCurrent').textContent = current;
-  document.getElementById('statLost').textContent = lost;
+function togExFromTab(day,i){
+  const key = tk()+'-'+i;
+  const idx = state.doneEx.indexOf(key);
+  if(idx>-1) state.doneEx.splice(idx,1); else state.doneEx.push(key);
+  save(); showDay(day);
+}
+
+// Workout notes auto-save
+document.addEventListener('input', function(e){
+  if(e.target.id === 'workoutNotes'){
+    state.notes[tk()] = e.target.value;
+    save();
+  }
+});
+
+// ═══ RENDER PROGRESS ═══
+function renderProgress(){
+  const sorted = [...state.w].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  let wh = sorted.length === 0
+    ? '<div class="empty-state">No weights logged yet. Start today.</div>'
+    : sorted.slice(0,14).map((w,i)=>{
+        const prev = sorted[i+1];
+        const d = prev ? (prev.v - w.v).toFixed(1) : null;
+        const dh = d ? (d>0 ? `<span class="diff down">-${d}</span>` : `<span class="diff up">+${Math.abs(d)}</span>`) : '';
+        return `<div class="entry-row"><span class="d">${w.date}</span><span class="v">${w.v} kg ${dh}</span></div>`;
+      }).join('');
+  document.getElementById('weightLog').innerHTML = wh;
 }
 
 function logWeight(){
   const val = parseFloat(document.getElementById('weightInput').value);
-  if(!val || val < 50 || val > 200) return alert('Enter a valid weight (50-200 kg)');
-  state.weights.push({ date: getTodayKey(), weight: val });
-  state.weights.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if(!val || val<40 || val>200) return;
+  state.w.push({date: tk(), v: val});
+  state.w.sort((a,b)=>new Date(a.date)-new Date(b.date));
   document.getElementById('weightInput').value = '';
-  saveState(); renderProgress();
+  save(); renderProgress(); renderToday();
 }
 
-// ─── RENDER: RECIPES ───
-function findRecipe(name){
-  for(const cat in RECIPES){
-    for(const r of RECIPES[cat]) if(r.name === name) return r;
-  }
-  return null;
-}
-
-function renderRecipes(filter='all'){
+// ═══ RENDER RECIPES ═══
+function renderRecipes(filter){
   let html = '';
-  for(const cat in RECIPES){
+  for(const cat in R){
     if(filter !== 'all' && filter !== cat) continue;
-    const label = cat.charAt(0).toUpperCase() + cat.slice(1);
-    html += `<h3 style="font-size:16px;margin:16px 0 8px;color:var(--accent2)">${label}</h3>`;
-    RECIPES[cat].forEach(r => {
-      html += `
-        <div class="recipe-card" onclick="toggleRecipe(this)">
-          <div style="display:flex;justify-content:space-between;align-items:start">
-            <div>
-              <h4>${r.name}</h4>
-              <span class="badge-cal">${r.cal} cal · ${r.protein}g protein</span>
-              <span class="time">${r.time}</span>
+    const lbl = cat.charAt(0).toUpperCase() + cat.slice(1);
+    html += `<div class="section-title" style="margin-top:16px"><h2>${lbl}</h2></div>`;
+    R[cat].forEach(r=>{
+      html += `<div class="r-card" onclick="this.classList.toggle('open')">
+        <div class="top">
+          <div>
+            <h4>${r.n}</h4>
+            <div class="tags">
+              <span class="tag">${r.c} cal</span>
+              <span class="tag">${r.p}g protein</span>
+              <span class="tag">${r.t}</span>
             </div>
-            <span style="font-size:18px">▼</span>
           </div>
-          <div class="preview">${r.ingredients.slice(0,60)}...</div>
-          <div class="ingredients">
-            <h4>🧂 Ingredients</h4>
-            <ul>${r.ingredients.split(',').map(i=>`<li>${i.trim()}</li>`).join('')}</ul>
-          </div>
-          <div class="steps">
-            <h4>👨‍🍳 Steps</h4>
-            <ul>${r.steps.split('\n').map(s=>`<li>${s.replace(/^\d+\.\s*/,'')}</li>`).join('')}</ul>
-            <div class="tip">💡 ${r.tip}</div>
-          </div>
-        </div>`;
+          <span class="arrow">+</span>
+        </div>
+        <div class="detail">
+          <h5>Ingredients</h5>
+          <ul>${r.i.split(',').map(i=>'<li>'+i.trim()+'</li>').join('')}</ul>
+          <h5 style="margin-top:10px">Steps</h5>
+          <ul>${r.s.split('|').map(s=>'<li>'+s+'</li>').join('')}</ul>
+          <div class="tip">${r.tip}</div>
+        </div>
+      </div>`;
     });
   }
   document.getElementById('recipeList').innerHTML = html;
 }
 
-function toggleRecipe(el){
-  const ings = el.querySelector('.ingredients');
-  const steps = el.querySelector('.steps');
-  const arrow = el.querySelector('span');
-  const isOpen = ings.classList.contains('open');
-  ings.classList.toggle('open');
-  steps.classList.toggle('open');
-  arrow.textContent = isOpen ? '▼' : '▲';
-}
-
-// ─── TABS ───
-document.querySelectorAll('.tab-btn').forEach(btn => {
+// ═══ TABS ═══
+document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.addEventListener('click', function(){
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
     this.classList.add('active');
-    document.getElementById('tab-'+this.dataset.tab).classList.add('active');
-    if(this.dataset.tab === 'workout') renderWorkoutTab();
-    if(this.dataset.tab === 'progress') renderProgress();
-    if(this.dataset.tab === 'recipes') renderRecipes();
+    const id = 'pane-'+this.dataset.tab;
+    document.getElementById(id).classList.add('active');
+    if(this.dataset.tab==='workout') renderWorkout();
+    if(this.dataset.tab==='progress') renderProgress();
+    if(this.dataset.tab==='recipes') renderRecipes(document.querySelector('#recipeFilter .flt.active')?.dataset?.f||'all');
   });
 });
 
-// Recipe filter
+// Recipe filters
 document.addEventListener('click', function(e){
-  if(e.target.closest('#recipeFilter .day-btn')){
-    document.querySelectorAll('#recipeFilter .day-btn').forEach(b=>b.classList.remove('active'));
-    e.target.classList.add('active');
-    renderRecipes(e.target.dataset.filter);
+  const flt = e.target.closest('#recipeFilter .flt');
+  if(flt){
+    document.querySelectorAll('#recipeFilter .flt').forEach(f=>f.classList.remove('active'));
+    flt.classList.add('active');
+    renderRecipes(flt.dataset.f);
   }
 });
 
-// ─── INIT ───
+// ═══ INIT ═══
 renderToday();
-
-// Auto-switch day for workout
-setInterval(() => {
-  const now = new Date();
-  if(now.getHours() === 0 && now.getMinutes() === 0){
-    renderToday();
-    if(document.getElementById('tab-workout').classList.contains('active')) renderWorkoutTab();
-  }
-}, 60000);
-
-console.log('🏋️ 24-Week Transformation loaded');
-console.log(`📅 Start: ${state.startDate} | Week: ${getWeekNumber()+1} | Phase: ${getPhase()}`);
+console.log('24-Week Transformation loaded');
 </script>
 </body>
 </html>
