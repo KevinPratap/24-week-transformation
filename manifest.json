@@ -1,0 +1,11 @@
+{
+  "name": "24-Week Transformation",
+  "short_name": "Transform",
+  "description": "24-week aesthetic transformation tracker — meals, workouts, recipes, progress",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "orientation": "portrait",
+  "icons": []
+}
