@@ -31,6 +31,10 @@ body{
 }
 /* Top Bar */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 8px}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-logo{flex-shrink:0}
+.topbar-logo svg{display:block;width:28px;height:28px}
+.topbar-logo svg *{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .topbar h1{font-family:var(--font-h);font-weight:800;font-size:20px;letter-spacing:-0.3px;color:var(--text)}
 .topbar .meta{font-size:11px;color:var(--text3);letter-spacing:0.5px;text-transform:uppercase;font-weight:500;margin-top:1px}
 .topbar .badge{font-size:11px;font-weight:600;color:var(--text);background:var(--border);padding:4px 10px;border-radius:6px;letter-spacing:0.3px}
@@ -193,9 +197,18 @@ body{
 <body>
 
 <div class="topbar">
-  <div>
-    <h1>Transformation</h1>
-    <div class="meta">Phase <span id="phaseNum">1</span> &middot; Week <span id="weekNum">1</span></div>
+  <div class="topbar-left">
+    <div class="topbar-logo">
+      <svg viewBox="0 0 32 32">
+        <polygon points="16,2 30,16 16,30 2,16"/>
+        <polygon points="16,8 24,16 16,24 8,16" stroke-width="1.5" stroke="var(--text3)" fill="none"/>
+        <polygon points="16,12 20,16 16,20 12,16" stroke-width="1" stroke="var(--text2)" fill="none"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Transformation</h1>
+      <div class="meta">Phase <span id="phaseNum">1</span> &middot; Week <span id="weekNum">1</span></div>
+    </div>
   </div>
   <div class="badge" id="dayBadge">Day 1</div>
 </div>
