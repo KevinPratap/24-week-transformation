@@ -522,6 +522,21 @@ document.addEventListener('click',function(e){
   if(flt){document.querySelectorAll('#recipeFilter .flt').forEach(f=>f.classList.remove('active'));flt.classList.add('active');renderRecipes(flt.dataset.f)}
 });
 
+// ── SWIPE GESTURES ──
+let touchStartX=0,touchStartY=0;
+document.addEventListener('touchstart',function(e){touchStartX=e.changedTouches[0].screenX;touchStartY=e.changedTouches[0].screenY;},{passive:true});
+document.addEventListener('touchend',function(e){
+  const dx=e.changedTouches[0].screenX-touchStartX;
+  const dy=e.changedTouches[0].screenY-touchStartY;
+  if(Math.abs(dx)<60||Math.abs(dy)>Math.abs(dx)*0.5)return;
+  const tabs=['today','workout','progress','recipes'];
+  const active=document.querySelector('.tab-btn.active');
+  if(!active)return;const idx=tabs.indexOf(active.dataset.tab);let next;
+  if(dx<0&&idx<tabs.length-1)next=tabs[idx+1];
+  else if(dx>0&&idx>0)next=tabs[idx-1];
+  if(next){const btn=[...document.querySelectorAll('.tab-btn')].find(b=>b.dataset.tab===next);if(btn)btn.click();}
+},{passive:true});
+
 renderToday();
 console.log('24-Week Transformation loaded');
 </script>
