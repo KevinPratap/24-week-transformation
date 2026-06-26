@@ -331,15 +331,8 @@ function getTodayMeals(d){
   return plans[(d+7)%plans.length];
 }
 
-let state=JSON.parse(localStorage.getItem('tState')||'{}');
-if(!state.w)state.w=[];
-if(!state.water)state.water=0;
-if(!state.waterDate)state.waterDate='';
-if(!state.doneEx)state.doneEx=[];
-if(!state.doneMeals)state.doneMeals=[];
-if(!state.start)state.start=new Date().toISOString().slice(0,10);
-if(!state.notes)state.notes={};
-if(!state.recipeOpen)state.recipeOpen=[];
+let state=JSON.parse(localStorage.getItem('tState')||JSON.stringify({w:[],water:0,waterDate:'',doneEx:[],doneMeals:[],start:new Date().toISOString().slice(0,10),notes:{},recipeOpen:[]}));
+if(!state.w||!state.doneEx)state={w:state.w||[],water:state.water||0,waterDate:state.waterDate||'',doneEx:state.doneEx||[],doneMeals:state.doneMeals||[],start:state.start||new Date().toISOString().slice(0,10),notes:state.notes||{},recipeOpen:state.recipeOpen||[]};
 
 function tk(){return new Date().toISOString().slice(0,10)}
 function dn(){return DAYS[new Date().getDay()]}
