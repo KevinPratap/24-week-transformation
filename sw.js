@@ -1,5 +1,5 @@
 /* Transformation PWA service worker — offline app shell, fresh tip when online */
-const CACHE = 'fred-v2';
+const CACHE = 'fred-v3';
 const PRECACHE = [
   '/',
   '/index.html',
