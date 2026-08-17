@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Transformation — Fred Again Cut</title>
-<script>try{var t=localStorage.getItem('tTheme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<script>try{var t=localStorage.getItem('tTheme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content=t==='light'?'default':'black-translucent'}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@ img{max-width:100%;display:block}
   --bg:#0a0a0a; --surface:#121212; --surface2:#1a1a1a; --border:#242424;
   --text:#f5f5f5; --text2:#9b9b9b; --text3:#5c5c5c;
   --green:#4ade80; --red:#f87171;
-  --radius:12px; --radius-sm:8px;
+  --radius:12px; --radius-sm:10px;
   --font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
   --font-h:'Barlow Condensed',sans-serif;
   --safe-t:env(safe-area-inset-top,0px);
@@ -32,210 +32,224 @@ img{max-width:100%;display:block}
 }
 [data-theme="light"]{
   --bg:#f6f6f4; --surface:#ffffff; --surface2:#f0f0ee; --border:#e5e5e2;
-  --text:#141414; --text2:#6b6b68; --text3:#a4a4a0;
+  --text:#141414; --text2:#6b6b68; --text3:#a0a09c;
   --green:#16a34a; --red:#dc2626;
 }
 html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:hidden}
 body{
   font-family:var(--font); background:var(--bg); color:var(--text);
   max-width:430px; margin:0 auto; min-height:100vh;
-  padding-bottom:calc(76px + var(--safe-b));
+  padding-bottom:calc(78px + var(--safe-b));
   -webkit-tap-highlight-color:transparent; overscroll-behavior:none;
-  transition:background 0.25s,color 0.25s;
+  font-variant-numeric:tabular-nums;
+  transition:background 0.25s ease,color 0.25s ease;
 }
+button,input,textarea{-webkit-appearance:none;appearance:none;touch-action:manipulation}
+button{cursor:pointer}
 /* ── Header ── */
 .header{
   position:sticky;top:0;z-index:50;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  padding:calc(14px + var(--safe-t)) 20px 10px;border-bottom:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:calc(12px + var(--safe-t)) 20px 10px;
+  transition:background 0.25s ease,border-color 0.25s ease;
 }
-.header-row{display:flex;align-items:center;justify-content:space-between}
-.header-left{display:flex;align-items:center;gap:10px}
-.logo{flex-shrink:0}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.header-left{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{flex-shrink:0;display:flex}
 .logo svg{display:block;width:26px;height:26px}
 .logo svg *{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.header h1{font-family:var(--font-h);font-weight:800;font-size:19px;letter-spacing:1.2px;color:var(--text)}
-.header .meta{font-size:10px;color:var(--text3);letter-spacing:1.2px;text-transform:uppercase;font-weight:600;margin-top:1px}
+.header h1{font-family:var(--font-h);font-weight:800;font-size:20px;letter-spacing:2px;color:var(--text);line-height:1.1}
+.header .meta{font-size:10px;color:var(--text3);letter-spacing:1.6px;text-transform:uppercase;font-weight:600;margin-top:2px}
 .theme-btn{
   width:44px;height:44px;border-radius:10px;border:1px solid var(--border);background:var(--surface);
-  display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
-  transition:transform 0.15s,border-color 0.2s;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform 0.15s,border-color 0.2s,background 0.25s ease;
 }
-.theme-btn:active{transform:scale(0.92)}
+.theme-btn:active{transform:scale(0.9)}
 .theme-btn svg{width:18px;height:18px;display:block}
 .theme-btn svg *{fill:none;stroke:var(--text2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .theme-btn .icon-moon{display:none}
 [data-theme="light"] .theme-btn .icon-sun{display:none}
 [data-theme="light"] .theme-btn .icon-moon{display:block}
-/* ── Hero countdown ── */
-.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:16px 20px 0}
-.hero-num{font-family:var(--font-h);font-weight:800;font-size:64px;line-height:0.9;letter-spacing:-1px;color:var(--text)}
-.hero-label{font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-top:6px}
-.hero-sub{font-size:11px;color:var(--text2);margin-top:2px;font-weight:500}
-.hero-right{text-align:right;padding-bottom:2px;flex-shrink:0}
-.hero-phase-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text3)}
-.hero-phase{font-family:var(--font-h);font-weight:700;font-size:30px;letter-spacing:1px;color:var(--text);line-height:1}
-.hero-day{font-size:11px;color:var(--text2);margin-top:4px;font-weight:600}
-.track{height:3px;border-radius:2px;background:var(--surface2);border:1px solid var(--border);margin:14px 20px 0;overflow:hidden}
+/* ── Hero ── */
+.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:20px 20px 0}
+.hero-num{font-family:var(--font-h);font-weight:800;font-size:64px;line-height:0.85;letter-spacing:-1px;color:var(--text)}
+.hero-label{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-top:8px}
+.hero-sub{font-size:11px;color:var(--text2);margin-top:3px;font-weight:500}
+.hero-right{text-align:right;flex-shrink:0;padding-bottom:4px}
+.hero-right .day{font-family:var(--font-h);font-weight:700;font-size:30px;letter-spacing:1px;color:var(--text);line-height:1}
+.hero-right .date{font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-top:5px}
+.track{height:4px;border-radius:2px;background:var(--surface2);margin:18px 20px 0;overflow:hidden}
 .track-fill{height:100%;background:var(--text);border-radius:2px;transition:width 0.4s ease}
-/* ── Section ── */
-.section-title{display:flex;justify-content:space-between;align-items:baseline;padding:0 20px;margin:22px 0 8px}
-.section-title h2{font-family:var(--font-h);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--text2)}
-.section-title .sub{font-size:12px;color:var(--text3);font-weight:500}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin:0 16px 8px}
 /* ── Stats ── */
-.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 16px 0}
-.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 4px;text-align:center}
-.stat-box .num{font-family:var(--font-h);font-size:24px;font-weight:700;color:var(--text);line-height:1.1}
-.stat-box .label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px;font-weight:600}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 20px 0}
+.stat-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px 4px 12px;text-align:center;cursor:pointer;user-select:none;
+  transition:transform 0.15s,background 0.25s ease,border-color 0.25s ease;
+}
+.stat-box:active{transform:scale(0.96)}
+.stat-box .num{font-family:var(--font-h);font-size:26px;font-weight:700;color:var(--text);line-height:1}
+.stat-box .label{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:1.2px;margin-top:6px;font-weight:600}
 .stat-box .num.green{color:var(--green)}
+/* ── Sections ── */
+.section-title{display:flex;justify-content:space-between;align-items:baseline;padding:0 20px;margin:24px 0 10px}
+.section-title h2{font-family:var(--font-h);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--text2)}
+.section-title .sub{font-size:12px;color:var(--text3);font-weight:500}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin:0 20px 10px;transition:background 0.25s ease,border-color 0.25s ease}
 /* ── Tip ── */
-/* tip block is injected daily by the server script; styled via .card + inline vars */
+.tip-card{background:var(--surface2);padding:14px 16px}
+.tip-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);font-weight:700;margin-bottom:6px}
+.tip-body{font-size:13.5px;line-height:1.55;color:var(--text)}
 /* ── Meals ── */
-.meal-group{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);font-weight:700;padding:12px 0 4px 10px;border-left:2px solid var(--text3);margin-top:8px}
-.meal-group:first-child{margin-top:0}
+.meal-group{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--text3);font-weight:700;padding:14px 0 4px 12px;border-left:2px solid var(--text3);margin-top:4px}
+.meal-group:first-child{margin-top:0;padding-top:0}
 .meal-item{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--border)}
 .meal-item:last-child{border-bottom:none;padding-bottom:0}
 .meal-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;background:var(--text3);transition:background 0.2s}
 .meal-item.done .meal-dot{background:var(--green)}
-.meal-info{flex:1;min-width:0;cursor:pointer}
-.meal-info .name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-.meal-info .meta{font-size:12px;color:var(--text3);margin-top:2px}
+.meal-info{flex:1;min-width:0;cursor:pointer;padding:2px 0}
+.meal-info .name{font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+.meal-info .meta{font-size:12px;color:var(--text3);margin-top:3px}
 .meal-check{
-  width:38px;height:38px;border-radius:50%;border:1.5px solid var(--text3);flex-shrink:0;
+  width:44px;height:44px;border-radius:50%;border:1.5px solid var(--text3);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all 0.15s;font-size:14px;color:transparent;background:transparent;
+}
+.meal-check:active{transform:scale(0.86)}
+.meal-item.done .meal-check{border-color:var(--green);background:var(--green);color:var(--bg);animation:pop 0.25s ease}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.3)}60%{transform:scale(0.94)}100%{transform:scale(1)}}
+.recipe-wrap{max-height:0;overflow:hidden;transition:max-height 0.35s ease;background:var(--surface2);border-radius:8px}
+.recipe-wrap.open{max-height:600px;margin-top:12px;padding:14px}
+.recipe-wrap h4{font-family:var(--font-h);font-size:13px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text2);margin-bottom:6px}
+.recipe-wrap ul{padding-left:16px;list-style:disc}
+.recipe-wrap li{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:3px}
+.recipe-wrap .tip{font-size:12px;color:var(--text2);margin-top:9px;font-style:italic}
+.recipe-wrap,.recipe-wrap *{user-select:text;-webkit-user-select:text}
+/* ── Water ── */
+.water-segs{display:flex;gap:6px;padding-top:8px}
+.water-seg{flex:1;height:44px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;background:transparent}
+.water-seg.done{background:var(--green);border-color:var(--green)}
+.water-seg:active{transform:scale(0.94)}
+.water-hint{font-size:11px;color:var(--text3);margin-top:10px;font-weight:500}
+/* ── Workout ── */
+.workout-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;margin:0 20px 8px;transition:background 0.25s ease,border-color 0.25s ease}
+.workout-card h3{font-family:var(--font-h);font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:4px}
+.workout-card p{font-size:13px;color:var(--text3);line-height:1.5}
+.workout-ex{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.workout-ex:last-child{border-bottom:none}
+.ex-info{display:flex;align-items:baseline;gap:8px;min-width:0;flex:1}
+.workout-ex .ex-name{color:var(--text);font-weight:500;font-size:14px}
+.workout-ex .ex-reps{color:var(--text3);font-size:12px;white-space:nowrap}
+.ex-ck{
+  width:44px;height:44px;border-radius:8px;border:1.5px solid var(--text3);flex-shrink:0;
   display:flex;align-items:center;justify-content:center;cursor:pointer;
   transition:all 0.15s;font-size:13px;color:transparent;background:transparent;
 }
-.meal-check:active{transform:scale(0.88)}
-.meal-item.done .meal-check{border-color:var(--green);background:var(--green);color:var(--bg);animation:pop 0.25s ease}
-@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.35)}60%{transform:scale(0.92)}100%{transform:scale(1)}}
-.recipe-wrap{max-height:0;overflow:hidden;transition:max-height 0.35s ease;background:var(--surface2);border-radius:var(--radius-sm)}
-.recipe-wrap.open{max-height:600px;margin-top:10px;padding:14px}
-.recipe-wrap h4{font-family:var(--font-h);font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px}
-.recipe-wrap ul{padding-left:16px;list-style:disc}
-.recipe-wrap li{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:2px}
-.recipe-wrap .tip{font-size:11px;color:var(--text2);margin-top:8px;font-style:italic}
-.recipe-wrap,.recipe-wrap *{user-select:text;-webkit-user-select:text}
-/* ── Water ── */
-.water-segs{display:flex;gap:6px;padding-top:10px}
-.water-seg{flex:1;height:40px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;background:transparent}
-.water-seg.done{background:var(--green);border-color:var(--green)}
-.water-seg:active{transform:scale(0.95)}
-.water-label{font-size:11px;color:var(--text3);margin-top:8px;font-weight:500}
-/* ── Workout ── */
-.workout-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:0 16px 6px}
-.workout-card h3{font-family:var(--font-h);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text2);margin-bottom:6px}
-.workout-card p{padding:4px 0}
-.workout-ex{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.3}
-.workout-ex:last-child{border-bottom:none}
-.workout-ex .ex-name{color:var(--text);font-weight:500}
-.workout-ex .ex-reps{color:var(--text3);font-size:12px}
-.ex-ck{
-  width:24px;height:24px;border-radius:6px;border:1.5px solid var(--text3);flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;cursor:pointer;
-  transition:all 0.15s;font-size:11px;color:transparent;
-}
-.ex-ck:active{transform:scale(0.88)}
+.ex-ck:active{transform:scale(0.86)}
 .workout-ex.done .ex-ck{border-color:var(--green);background:var(--green);color:var(--bg)}
 .workout-ex.done .ex-name{color:var(--text2);text-decoration:line-through;text-decoration-color:var(--text3)}
 /* ── Tab bar ── */
 .tabbar{
   position:fixed;bottom:0;left:0;right:0;z-index:100;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
   backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
   border-top:1px solid var(--border);
-  display:flex;justify-content:space-around;padding:6px 0 calc(6px + var(--safe-b));
+  display:flex;justify-content:space-around;padding:8px 0 calc(8px + var(--safe-b));
   max-width:430px;margin:0 auto;
+  transition:background 0.25s ease,border-color 0.25s ease;
 }
 .tab-btn{
-  border:none;background:none;cursor:pointer;position:relative;
-  display:flex;flex-direction:column;align-items:center;gap:2px;
-  padding:6px 16px;min-width:0;transition:transform 0.15s;
+  border:none;background:none;position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 16px;min-width:0;transition:transform 0.15s;
 }
-.tab-btn:active{transform:scale(0.92)}
-.tab-btn svg{width:20px;height:20px;display:block}
+.tab-btn:active{transform:scale(0.9)}
+.tab-btn svg{width:21px;height:21px;display:block}
 .tab-btn svg *{fill:none;stroke:var(--text3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
-.tab-btn.active svg *{stroke:var(--text)}
-.tab-btn .lbl{font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:600;color:var(--text3);transition:color 0.2s}
+.tab-btn.active svg *{stroke:var(--text);stroke-width:2.1}
+.tab-btn .lbl{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;font-weight:600;color:var(--text3);transition:color 0.2s}
 .tab-btn.active .lbl{color:var(--text)}
 .tab-btn::after{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--text);border-radius:1px;transition:width 0.2s}
-.tab-btn.active::after{width:22px}
+.tab-btn.active::after{width:24px}
 /* ── Tabs ── */
 .tab-pane{display:none;animation:fadeIn 0.22s ease}
 .tab-pane.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-/* ── Day / filter strips ── */
-.day-strip,.filter-strip{display:flex;gap:6px;margin:0 16px 10px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+/* ── Strips ── */
+.day-strip,.filter-strip{display:flex;gap:8px;margin:0 20px 12px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
 .day-strip::-webkit-scrollbar,.filter-strip::-webkit-scrollbar{display:none}
 .day-strip .day-pill,.filter-strip .flt{
-  padding:11px 15px;border-radius:8px;border:1px solid var(--border);font-size:12px;font-weight:600;
+  padding:13px 17px;border-radius:10px;border:1px solid var(--border);font-size:12.5px;font-weight:600;
   color:var(--text3);cursor:pointer;white-space:nowrap;background:var(--surface);transition:all 0.15s;
 }
 .day-strip .day-pill:active,.filter-strip .flt:active{transform:scale(0.95)}
 .day-strip .day-pill.active,.filter-strip .flt.active{background:var(--text);color:var(--bg);border-color:var(--text)}
 .day-strip .day-pill.today{color:var(--text2);border-color:var(--text2)}
 /* ── Weight ── */
-.w-input{display:flex;gap:8px;margin-bottom:12px}
+.w-input{display:flex;gap:10px;margin-bottom:14px}
 .w-input input{
-  flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:12px 14px;color:var(--text);font-size:16px;font-weight:600;outline:none;font-family:var(--font);
-  min-width:0;
+  flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;color:var(--text);font-size:16px;font-weight:600;outline:none;font-family:var(--font);
+  min-width:0;transition:border-color 0.2s;
 }
 .w-input input:focus{border-color:var(--text)}
 .w-input input::placeholder{color:var(--text3);font-weight:400}
 .w-input button{
-  background:var(--text);color:var(--bg);border:none;border-radius:var(--radius-sm);
-  padding:0 22px;font-weight:700;font-size:13px;cursor:pointer;font-family:var(--font);
-  letter-spacing:0.5px;transition:transform 0.15s;
+  background:var(--text);color:var(--bg);border:none;border-radius:10px;
+  padding:0 24px;font-weight:700;font-size:14px;letter-spacing:0.5px;font-family:var(--font);
+  transition:transform 0.15s;
 }
-.w-input button:active{transform:scale(0.95)}
-.entry-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px}
+.w-input button:active{transform:scale(0.94)}
+.entry-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px}
 .entry-row:last-child{border-bottom:none}
 .entry-row .d{color:var(--text3)}
 .entry-row .v{font-weight:600;color:var(--text)}
-.entry-row .diff{margin-left:6px;font-size:12px;font-weight:600}
+.entry-row .diff{margin-left:8px;font-size:12px;font-weight:700}
 .entry-row .diff.down{color:var(--green)}
 .entry-row .diff.up{color:var(--red)}
 /* ── Sparkline ── */
-.spark{width:100%;height:72px;display:block;margin-bottom:10px}
-.spark polyline{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.spark{width:100%;height:76px;display:block;margin-bottom:12px}
+.spark polyline{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .spark circle{fill:var(--bg);stroke:var(--text);stroke-width:2}
-.chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:11.5px;font-weight:600;padding:7px 13px;border-radius:8px;background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
 .chip b{color:var(--text);font-weight:700}
 /* ── Milestone ── */
-.mile-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:8px}
-.mile-track{height:5px;border-radius:3px;background:var(--surface2);border:1px solid var(--border);overflow:hidden}
+.mile-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:10px}
+.mile-track{height:5px;border-radius:3px;background:var(--surface2);overflow:hidden}
 .mile-fill{height:100%;background:var(--green);border-radius:3px;transition:width 0.4s ease}
-.mile-sub{font-size:11px;color:var(--text3);margin-top:7px;font-weight:500}
+.mile-sub{font-size:11.5px;color:var(--text3);margin-top:8px;font-weight:500}
 /* ── Recipes ── */
-.r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin:0 16px 8px;cursor:pointer;transition:background 0.15s}
+.r-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;margin:0 20px 8px;cursor:pointer;transition:background 0.15s}
 .r-card:active{background:var(--surface2)}
 .r-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.r-card h4{font-size:14px;font-weight:600;color:var(--text)}
-.r-card .tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
-.r-card .tag{font-size:10px;padding:3px 9px;border-radius:4px;background:var(--surface2);color:var(--text3);font-weight:500;border:1px solid var(--border)}
+.r-card h4{font-size:15px;font-weight:600;color:var(--text)}
+.r-card .tags{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap}
+.r-card .tag{font-size:10px;padding:4px 10px;border-radius:5px;background:var(--surface2);color:var(--text3);font-weight:600;border:1px solid var(--border);letter-spacing:0.3px}
 .r-card .arrow{transition:transform 0.3s;display:inline-block}
 .r-card.open .arrow{transform:rotate(90deg)}
 .r-card svg.chev{width:16px;height:16px;display:block;flex-shrink:0}
 .r-card svg.chev *{fill:none;stroke:var(--text3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .r-card .detail{max-height:0;overflow:hidden;transition:max-height 0.3s}
-.r-card.open .detail{max-height:600px;padding-top:12px}
-.r-card .detail h5{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);margin-bottom:6px;font-weight:600}
+.r-card.open .detail{max-height:600px;padding-top:13px}
+.r-card .detail h5{font-size:10px;text-transform:uppercase;letter-spacing:1.6px;color:var(--text2);margin-bottom:7px;font-weight:700}
 .r-card .detail ul{padding-left:16px;list-style:disc}
-.r-card .detail li{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:3px}
-.r-card .detail .tip{font-size:11px;color:var(--text2);margin-top:8px;font-style:italic}
+.r-card .detail li{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:4px}
+.r-card .detail .tip{font-size:12px;color:var(--text2);margin-top:10px;font-style:italic}
 .r-card,.r-card .detail{user-select:text;-webkit-user-select:text}
 /* ── Notes / misc ── */
 .notes-ta{
-  width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);
-  padding:12px 14px;color:var(--text);font-size:16px;min-height:70px;resize:vertical;font-family:var(--font);outline:none;
+  width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+  padding:14px 16px;color:var(--text);font-size:16px;min-height:80px;resize:vertical;font-family:var(--font);outline:none;
+  transition:border-color 0.2s;
 }
 .notes-ta:focus{border-color:var(--text2)}
 .notes-ta::placeholder{color:var(--text3)}
-.empty-state{padding:26px 18px;text-align:center;font-size:13px;color:var(--text3);background:var(--surface);border-radius:var(--radius);margin:0 16px;border:1px solid var(--border);line-height:1.7}
-.bot-space{height:24px}
+.empty-state{padding:28px 18px;text-align:center;font-size:13px;color:var(--text3);background:var(--surface);border-radius:var(--radius);margin:0 20px 10px;border:1px solid var(--border);line-height:1.7}
+.bot-space{height:8px}
 </style>
 </head>
 <body>
@@ -252,7 +266,7 @@ body{
       </div>
       <div>
         <h1>TRANSFORMATION</h1>
-        <div class="meta">Phase <span id="phaseNum">1</span> &middot; Week <span id="weekNum">1</span> &middot; <span id="phaseName">RESET</span></div>
+        <div class="meta">Week <span id="weekNum">1</span> &middot; <span id="phaseName">RESET</span></div>
       </div>
     </div>
     <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">
@@ -269,9 +283,8 @@ body{
     <div class="hero-sub">to Fred Again.. &middot; Dec 8</div>
   </div>
   <div class="hero-right">
-    <div class="hero-phase-label">Phase <span id="phaseNum2">1</span></div>
-    <div class="hero-phase" id="phaseName2">RESET</div>
-    <div class="hero-day" id="dayBadge">Day 1</div>
+    <div class="day" id="dayBadge">Day 1</div>
+    <div class="date" id="todayDate">MON · AUG 17</div>
   </div>
 </div>
 <div class="track"><div class="track-fill" id="arcBar"></div></div>
@@ -279,22 +292,22 @@ body{
 <div class="tab-pane active" id="pane-today">
   <div class="stats-row">
     <div class="stat-box"><div class="num" id="sStart">102</div><div class="label">Start</div></div>
-    <div class="stat-box"><div class="num" id="sCurrent">102</div><div class="label">Current</div></div>
+    <div class="stat-box" onclick="goTab('progress')"><div class="num" id="sCurrent">102</div><div class="label">Current</div></div>
     <div class="stat-box"><div class="num green" id="sLost">0</div><div class="label">Lost</div></div>
     <div class="stat-box"><div class="num" id="sStreak">0</div><div class="label">Streak</div></div>
   </div>
 <!-- DAILY_TIP_START -->
-  <div class="card" style="background:var(--surface2);border-color:var(--text3);padding:12px 16px">
-    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--text2);font-weight:600;margin-bottom:4px" id="tipLabel">Day 1 &middot; RESET</div>
-    <div id="dailyTip" style="font-size:13px;color:var(--text);line-height:1.5">Day 1 · 113 days to Fred again.. You are 102kg at 5 foot 10 and you gave yourself 113 days. That is the whole point. Day 1: 2100 cal. 180g protein. 12k steps. 7 PM gym. No excuses.</div>
+  <div class="card tip-card">
+    <div class="tip-label" id="tipLabel">Day 1 &middot; RESET</div>
+    <div class="tip-body" id="dailyTip">Day 1 · 113 days to Fred again.. You are 102kg at 5 foot 10 and you gave yourself 113 days. That is the whole point. Day 1: 2100 cal. 180g protein. 12k steps. 7 PM gym. No excuses.</div>
   </div>
 <!-- DAILY_TIP_END -->
-  <div class="section-title"><h2>Today's Meals</h2><div class="sub"><span id="calEaten">0</span>/<span id="calTarget">2100</span> kcal</div></div>
-  <div class="card" id="mealsContainer"></div>
-  <div class="section-title"><h2>Water</h2><div class="sub"><span id="waterCount">0</span>/8 &middot; <span id="waterLiters">0.0</span>L</div></div>
-  <div class="card"><div class="water-segs" id="waterGrid"></div><div class="water-label">8 segments = 3L. Tap each glass as you finish it.</div></div>
   <div class="section-title"><h2>Today's Workout</h2><div class="sub" id="todayWorkoutDay">Monday</div></div>
   <div id="todayWorkout"></div>
+  <div class="section-title"><h2>Today's Meals</h2><div class="sub"><span id="calEaten">0</span>/<span id="calTarget">2100</span> kcal</div></div>
+  <div class="card" id="mealsContainer"></div>
+  <div class="section-title"><h2>Water</h2><div class="sub"><span id="waterCount">0</span>/8</div></div>
+  <div class="card"><div class="water-segs" id="waterGrid"></div><div class="water-hint" id="waterHint">0 of 8 cups · 0.0L of 3L</div></div>
 </div>
 
 <div class="tab-pane" id="pane-workout">
@@ -309,10 +322,10 @@ body{
   <div class="section-title"><h2>Weight Log</h2></div>
   <div class="card">
     <div class="w-input">
-      <input type="number" id="weightInput" inputmode="decimal" placeholder="kg" step="0.1" enterkeyhint="done">
+      <input type="number" id="weightInput" inputmode="decimal" placeholder="Morning weight" step="0.1" enterkeyhint="done" autocomplete="off">
       <button onclick="logWeight()">Log</button>
     </div>
-    <svg class="spark" id="sparkline" viewBox="0 0 300 72" preserveAspectRatio="none"></svg>
+    <svg class="spark" id="sparkline" viewBox="0 0 300 76" preserveAspectRatio="none"></svg>
     <div class="chips" id="avgChips"></div>
     <div id="weightLog"></div>
   </div>
@@ -326,7 +339,7 @@ body{
       <span class="chip"><b>12K</b> steps</span>
       <span class="chip"><b>3L</b> water</span>
       <span class="chip"><b>8hr</b> sleep</span>
-      <span class="chip">Progress photo</span>
+      <span class="chip">Photo</span>
     </div>
   </div>
 </div>
@@ -433,18 +446,21 @@ function dop(){return Math.max(0,Math.floor((new Date()-APP_START)/86400000))}
 function pn(){const d=dop();return d<29?1:d<64?2:d<92?3:d<106?4:d<110?5:6}
 function sv(){localStorage.setItem('tState',JSON.stringify(state))}
 function buzz(){try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}}
+function goTab(name){
+  const btn=[...document.querySelectorAll('.tab-btn')].find(b=>b.dataset.tab===name);
+  if(btn)btn.click();
+}
 
 function findR(name){for(const c in R)for(const r of R[c])if(r.n===name)return r;return null}
 
 function renderToday(){
   const p=pn(),i=PHASE[p],dN=dop()+1,tdy=tk();
   const left=Math.max(0,Math.ceil((EVENT-new Date())/86400000));
-  document.getElementById('phaseNum').textContent=p;
-  document.getElementById('phaseNum2').textContent=p;
   document.getElementById('weekNum').textContent=wn()+1;
   document.getElementById('phaseName').textContent=PHASE[p].label;
-  document.getElementById('phaseName2').textContent=PHASE[p].label;
   document.getElementById('dayBadge').textContent='Day '+dN;
+  const now=new Date();
+  document.getElementById('todayDate').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase().replace(',',' ·');
   document.getElementById('daysLeft').textContent=left;
   document.getElementById('arcBar').style.width=Math.min(100,(dop()/TOTAL_DAYS)*100)+'%';
   if(state.waterDate!==tdy){state.water=0;state.waterDate=tdy;sv()}
@@ -490,7 +506,7 @@ function renderToday(){
   // Water
   const wc=state.water||0;
   document.getElementById('waterCount').textContent=wc;
-  document.getElementById('waterLiters').textContent=(wc*0.375).toFixed(1);
+  document.getElementById('waterHint').textContent=wc+' of 8 cups · '+(wc*0.375).toFixed(1)+'L of 3L';
   let wh='';
   for(let i=0;i<8;i++)wh+=`<div class="water-seg${i<wc?' done':''}" onclick="togWater()"></div>`;
   document.getElementById('waterGrid').innerHTML=wh;
@@ -501,10 +517,10 @@ function renderToday(){
     let wht=`<div class="workout-card"><h3>${day} &middot; ${w[0]}</h3>`;
     w[1].forEach((ex,i)=>{
       const k=tdy+'-'+i,dn2=state.doneEx.includes(k);
-      wht+=`<div class="workout-ex${dn2?' done':''}"><span><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togEx(${i})">${dn2?'&#x2713;':''}</div></div>`;
+      wht+=`<div class="workout-ex${dn2?' done':''}"><span class="ex-info"><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togEx(${i})">${dn2?'&#x2713;':''}</div></div>`;
     });
     wht+='</div>';document.getElementById('todayWorkout').innerHTML=wht;
-  }else document.getElementById('todayWorkout').innerHTML='<div class="workout-card"><h3>Rest Day</h3><p style="font-size:13px;color:var(--text3)">Walk 12K steps. Stretch. Recover. Sleep well.</p></div>';
+  }else document.getElementById('todayWorkout').innerHTML='<div class="workout-card"><h3>Rest Day</h3><p>Walk 12K steps. Stretch. Recover. Sleep well.</p></div>';
 }
 
 function streak(){
@@ -553,31 +569,33 @@ function showDay(day){
     const tdy=tk();let wh=`<div class="workout-card"><h3>${day} &middot; ${w[0]}</h3>`;
     w[1].forEach((ex,i)=>{
       const k=tdy+'-'+i,dn2=state.doneEx.includes(k);
-      wh+=`<div class="workout-ex${dn2?' done':''}"><span><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togExFromTab('${day}',${i})">${dn2?'&#x2713;':''}</div></div>`;
+      wh+=`<div class="workout-ex${dn2?' done':''}"><span class="ex-info"><span class="ex-name">${ex.split(',')[0]}</span> <span class="ex-reps">${ex.split(',')[1]}</span></span><div class="ex-ck" onclick="togExFromTab('${day}',${i})">${dn2?'&#x2713;':''}</div></div>`;
     });
     wh+='</div>';document.getElementById('workoutDetail').innerHTML=wh;
-  }else document.getElementById('workoutDetail').innerHTML='<div class="workout-card"><h3>Rest Day</h3><p style="font-size:13px;color:var(--text3)">Walk 12K steps. Stretch. Sleep well.</p></div>';
+  }else document.getElementById('workoutDetail').innerHTML='<div class="workout-card"><h3>Rest Day</h3><p>Walk 12K steps. Stretch. Sleep well.</p></div>';
   document.querySelectorAll('#dayStrip .day-pill').forEach(b=>b.classList.toggle('active',b.textContent.trim()===day.slice(0,3)));
 }
 function togExFromTab(day,i){const k=tk()+'-'+i;const idx=state.doneEx.indexOf(k);if(idx>-1)state.doneEx.splice(idx,1);else state.doneEx.push(k);buzz();sv();showDay(day)}
 
 document.addEventListener('input',function(e){if(e.target.id==='workoutNotes'){state.notes[tk()]=e.target.value;sv()}});
+document.getElementById('weightInput').addEventListener('keydown',function(e){if(e.key==='Enter')logWeight()});
 
 function renderProgress(){
-  const srt=[...state.w].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const desc=[...state.w].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const asc=[...desc].reverse();
   // Sparkline
   const svg=document.getElementById('sparkline');
-  if(srt.length>=2){
-    const pts=srt.slice(-14),vals=pts.map(p=>p.v),mn=Math.min(...vals),mx=Math.max(...vals),rg=(mx-mn)||1;
+  if(asc.length>=2){
+    const pts=asc.slice(-14),vals=pts.map(p=>p.v),mn=Math.min(...vals),mx=Math.max(...vals),rg=(mx-mn)||1;
     const coords=pts.map((p,i)=>[(i/(pts.length-1))*300,64-((p.v-mn)/rg)*52]).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
     const last=coords.split(' ').pop().split(',');
     svg.innerHTML=`<polyline points="${coords}"/><circle cx="${last[0]}" cy="${last[1]}" r="3.5"/>`;
   }else svg.innerHTML='';
   // Chips
-  const cur=srt.length?srt[srt.length-1].v:null,st=srt.length?srt[0].v:null;
+  const cur=asc.length?asc[asc.length-1].v:null,st=asc.length?asc[0].v:null;
   let chips='';
-  if(srt.length>=7){
-    const last7=srt.slice(-7);const avg7=(last7.reduce((a,b)=>a+b.v,0)/last7.length).toFixed(1);
+  if(asc.length>=7){
+    const last7=asc.slice(-7);const avg7=(last7.reduce((a,b)=>a+b.v,0)/last7.length).toFixed(1);
     chips+=`<span class="chip">7-day avg <b>${avg7} kg</b></span>`;
   }
   if(cur&&st)chips+=`<span class="chip">Total <b>${(st-cur).toFixed(1)} kg</b> lost</span>`;
@@ -596,10 +614,14 @@ function renderProgress(){
     }else mc=`<div class="mile-name">All milestones hit. You did it.</div><div class="mile-track"><div class="mile-fill" style="width:100%"></div></div>`;
   }else mc=`<div class="mile-name">First milestone: 95 kg — noticeably leaner face</div><div class="mile-track"><div class="mile-fill" style="width:0%"></div></div><div class="mile-sub">Log your starting weight to begin</div>`;
   document.getElementById('milestoneCard').innerHTML=mc;
-  // Log
-  document.getElementById('weightLog').innerHTML=srt.length===0
+  // Log (newest first, diff vs previous entry)
+  document.getElementById('weightLog').innerHTML=desc.length===0
     ?'<div class="empty-state">No weights logged yet.<br>Log your morning weight — the 7-day average is the truth.</div>'
-    :srt.slice(0,14).reverse().map((w,i)=>{const p=srt[srt.length-1-i];const d=p?(p.v-w.v).toFixed(1):null;return `<div class="entry-row"><span class="d">${w.date}</span><span class="v">${w.v} kg ${d?(d>0?`<span class="diff down">-${d}</span>`:`<span class="diff up">+${Math.abs(d)}</span>`):''}</span></div>`;}).join('');
+    :desc.slice(0,14).map((w,i)=>{
+      const p=desc[i+1];
+      const d=p?(p.v-w.v).toFixed(1):null;
+      return `<div class="entry-row"><span class="d">${w.date}</span><span class="v">${w.v} kg ${d?(d>0?`<span class="diff down">-${d}</span>`:`<span class="diff up">+${Math.abs(d)}</span>`):''}</span></div>`;
+    }).join('');
 }
 function logWeight(){
   const val=parseFloat(document.getElementById('weightInput').value);
@@ -617,7 +639,7 @@ function renderRecipes(filter){
   for(const cat in R){
     if(filter!=='all'&&filter!==cat)continue;
     const lbl=cat.charAt(0).toUpperCase()+cat.slice(1);
-    html+=`<div class="section-title" style="margin-top:16px"><h2>${lbl}</h2></div>`;
+    html+=`<div class="section-title" style="margin-top:18px"><h2>${lbl}</h2></div>`;
     R[cat].forEach(r=>{
       html+=`<div class="r-card" onclick="this.classList.toggle('open')">
         <div class="top">
@@ -627,7 +649,7 @@ function renderRecipes(filter){
         <div class="detail">
           <h5>Ingredients</h5>
           <ul>${r.i.split(',').map(i=>'<li>'+i.trim()+'</li>').join('')}</ul>
-          <h5 style="margin-top:10px">Steps</h5>
+          <h5 style="margin-top:12px">Steps</h5>
           <ul>${r.s.split('|').map(s=>'<li>'+s+'</li>').join('')}</ul>
           <div class="tip">${r.tip}</div>
         </div>
@@ -642,6 +664,8 @@ document.getElementById('themeToggle').addEventListener('click',function(){
   const cur=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';
   document.documentElement.setAttribute('data-theme',cur);
   try{localStorage.setItem('tTheme',cur)}catch(e){}
+  const sb=document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+  if(sb)sb.content=cur==='light'?'default':'black-translucent';
   buzz();
 });
 
