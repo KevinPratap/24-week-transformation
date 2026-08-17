@@ -1,11 +1,17 @@
 {
-  "name": "24-Week Transformation",
-  "short_name": "Transform",
-  "description": "24-week aesthetic transformation tracker — meals, workouts, recipes, progress",
+  "name": "Transformation — Fred Again Cut",
+  "short_name": "CUT",
+  "description": "113-day cut to Fred Again.. Dec 8 — meals, workouts, water, weight, recipes. Day 1: Aug 17, 2026.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
-  "orientation": "portrait",
-  "icons": []
+  "categories": ["health", "fitness", "lifestyle"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
 }
