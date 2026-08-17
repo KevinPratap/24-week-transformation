@@ -103,6 +103,30 @@ button{cursor:pointer}
 .tip-card{background:var(--surface2);padding:14px 16px}
 .tip-label{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);font-weight:700;margin-bottom:6px}
 .tip-body{font-size:13.5px;line-height:1.55;color:var(--text)}
+/* ── On-track ── */
+.trk-status{font-family:var(--font-h);font-size:24px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text)}
+.trk-status.ahead{color:var(--green)}
+.trk-status.behind{color:var(--red)}
+.trk-detail{font-size:12.5px;color:var(--text2);margin-top:6px;line-height:1.5}
+.trk-pace{font-size:12px;color:var(--text3);margin-top:4px;font-weight:500}
+/* ── Target rows ── */
+.t-row{padding:11px 0;border-bottom:1px solid var(--border)}
+.t-row:first-child{padding-top:0}
+.t-row:last-child{border-bottom:none;padding-bottom:0}
+.t-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+.t-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);font-weight:700}
+.t-val{font-size:13px;font-weight:600;color:var(--text)}
+.t-val b{color:var(--text2);font-weight:600}
+.t-bar{height:5px;border-radius:3px;background:var(--surface2);overflow:hidden}
+.t-fill{height:100%;background:var(--text);border-radius:3px;transition:width 0.35s ease}
+.t-fill.green{background:var(--green)}
+.step-chips{display:flex;gap:8px;margin-top:10px}
+.step-chip{
+  flex:1;border:1px solid var(--border);background:var(--surface2);color:var(--text);
+  border-radius:10px;padding:12px 0;font-size:12.5px;font-weight:600;font-family:var(--font);
+  transition:transform 0.15s;
+}
+.step-chip:active{transform:scale(0.94)}
 /* ── Meals ── */
 .meal-group{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;color:var(--text3);font-weight:700;padding:14px 0 4px 12px;border-left:2px solid var(--text3);margin-top:4px}
 .meal-group:first-child{margin-top:0;padding-top:0}
@@ -128,12 +152,11 @@ button{cursor:pointer}
 .recipe-wrap li{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:3px}
 .recipe-wrap .tip{font-size:12px;color:var(--text2);margin-top:9px;font-style:italic}
 .recipe-wrap,.recipe-wrap *{user-select:text;-webkit-user-select:text}
-/* ── Water ── */
-.water-segs{display:flex;gap:6px;padding-top:8px}
-.water-seg{flex:1;height:44px;border-radius:8px;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;background:transparent}
+/* ── Water segments (in targets) ── */
+.water-segs{display:flex;gap:5px;padding-top:8px}
+.water-seg{flex:1;height:34px;border-radius:7px;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;background:transparent}
 .water-seg.done{background:var(--green);border-color:var(--green)}
 .water-seg:active{transform:scale(0.94)}
-.water-hint{font-size:11px;color:var(--text3);margin-top:10px;font-weight:500}
 /* ── Workout ── */
 .workout-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px 18px;margin:0 20px 8px;transition:background 0.25s ease,border-color 0.25s ease}
 .workout-card h3{font-family:var(--font-h);font-size:13px;text-transform:uppercase;letter-spacing:2px;color:var(--text2);margin-bottom:4px}
@@ -188,7 +211,7 @@ button{cursor:pointer}
 .day-strip .day-pill:active,.filter-strip .flt:active{transform:scale(0.95)}
 .day-strip .day-pill.active,.filter-strip .flt.active{background:var(--text);color:var(--bg);border-color:var(--text)}
 .day-strip .day-pill.today{color:var(--text2);border-color:var(--text2)}
-/* ── Weight ── */
+/* ── Weight / waist inputs ── */
 .w-input{display:flex;gap:10px;margin-bottom:14px}
 .w-input input{
   flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:10px;
@@ -213,6 +236,7 @@ button{cursor:pointer}
 /* ── Sparkline ── */
 .spark{width:100%;height:76px;display:block;margin-bottom:12px}
 .spark polyline{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.spark polyline.avg{stroke:var(--text2);stroke-width:1.5;stroke-dasharray:4 3;opacity:0.85}
 .spark circle{fill:var(--bg);stroke:var(--text);stroke-width:2}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{font-size:11.5px;font-weight:600;padding:7px 13px;border-radius:8px;background:var(--surface2);color:var(--text2);border:1px solid var(--border)}
@@ -247,6 +271,16 @@ button{cursor:pointer}
 .r-card .detail li{font-size:13px;color:var(--text2);line-height:1.55;margin-bottom:4px}
 .r-card .detail .tip{font-size:12px;color:var(--text2);margin-top:10px;font-style:italic}
 .r-card,.r-card .detail{user-select:text;-webkit-user-select:text}
+/* ── Photos ── */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.photo-thumb{position:relative;border-radius:10px;overflow:hidden;border:1px solid var(--border);background:var(--surface2);aspect-ratio:3/4}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb .pd{position:absolute;bottom:0;left:0;right:0;font-size:9px;font-weight:600;color:var(--text);background:linear-gradient(transparent,rgba(0,0,0,0.72));padding:14px 8px 5px;letter-spacing:0.5px}
+.photo-add{
+  border:1.5px dashed var(--text3);background:transparent;color:var(--text2);border-radius:10px;
+  padding:14px 0;font-size:13px;font-weight:600;font-family:var(--font);width:100%;transition:all 0.15s;
+}
+.photo-add:active{transform:scale(0.97);border-color:var(--text)}
 /* ── Notes / misc ── */
 .notes-ta{
   width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;
@@ -306,15 +340,43 @@ button{cursor:pointer}
 <!-- DAILY_TIP_START -->
   <div class="card tip-card">
     <div class="tip-label" id="tipLabel">Day 1 &middot; RESET</div>
-    <div class="tip-body" id="dailyTip">Day 1 · 113 days to Fred again.. You are 102kg at 5 foot 10 and you gave yourself 113 days. That is the whole point. Day 1: 2100 cal. 180g protein. 12k steps. 7 PM gym. No excuses.</div>
+    <div class="tip-body" id="dailyTip">Day 1 · 113 days to Fred again.. The arc is 113 days. 2100 cal, 180g protein, 12k steps, 7 PM gym. Stack the days and the body follows.</div>
   </div>
 <!-- DAILY_TIP_END -->
+  <div class="section-title"><h2>On Track</h2></div>
+  <div class="card">
+    <div class="trk-status" id="trkStatus">—</div>
+    <div class="trk-detail" id="trkDetail">Log your first weigh-in to start tracking.</div>
+    <div class="trk-pace" id="trkPace"></div>
+  </div>
+  <div class="section-title"><h2>Today's Targets</h2></div>
+  <div class="card">
+    <div class="t-row">
+      <div class="t-top"><span class="t-label">Calories</span><span class="t-val"><span id="calEaten">0</span> / <b id="calTarget">2100</b></span></div>
+      <div class="t-bar"><div class="t-fill" id="calBar" style="width:0%"></div></div>
+    </div>
+    <div class="t-row">
+      <div class="t-top"><span class="t-label">Protein</span><span class="t-val"><span id="protEaten">0</span> / <b>180g</b></span></div>
+      <div class="t-bar"><div class="t-fill" id="protBar" style="width:0%"></div></div>
+    </div>
+    <div class="t-row">
+      <div class="t-top"><span class="t-label">Steps</span><span class="t-val"><span id="stepsCount">0</span> / <b>12,000</b></span></div>
+      <div class="t-bar"><div class="t-fill" id="stepsBar" style="width:0%"></div></div>
+      <div class="step-chips">
+        <button class="step-chip" onclick="addSteps(500)">+500</button>
+        <button class="step-chip" onclick="addSteps(1000)">+1,000</button>
+        <button class="step-chip" onclick="addSteps(2500)">+2,500</button>
+      </div>
+    </div>
+    <div class="t-row">
+      <div class="t-top"><span class="t-label">Water</span><span class="t-val"><span id="waterCount">0</span> / 8 &middot; <span id="waterLiters">0.0</span>L</span></div>
+      <div class="water-segs" id="waterGrid"></div>
+    </div>
+  </div>
   <div class="section-title"><h2>Today's Workout</h2><div class="sub" id="todayWorkoutDay">Monday</div></div>
   <div id="todayWorkout"></div>
-  <div class="section-title"><h2>Today's Meals</h2><div class="sub"><span id="calEaten">0</span>/<span id="calTarget">2100</span> kcal</div></div>
+  <div class="section-title"><h2>Today's Meals</h2></div>
   <div class="card" id="mealsContainer"></div>
-  <div class="section-title"><h2>Water</h2><div class="sub"><span id="waterCount">0</span>/8</div></div>
-  <div class="card"><div class="water-segs" id="waterGrid"></div><div class="water-hint" id="waterHint">0 of 8 cups · 0.0L of 3L</div></div>
 </div>
 
 <div class="tab-pane" id="pane-workout">
@@ -336,6 +398,22 @@ button{cursor:pointer}
     <div class="chips" id="avgChips"></div>
     <div id="weightLog"></div>
   </div>
+  <div class="section-title"><h2>Waist</h2></div>
+  <div class="card">
+    <div class="w-input">
+      <input type="number" id="waistInput" inputmode="decimal" placeholder="cm at navel" step="0.5" enterkeyhint="done" autocomplete="off">
+      <button onclick="logWaist()">Log</button>
+    </div>
+    <div id="waistLog"></div>
+  </div>
+  <div class="section-title"><h2>Photos</h2><div class="sub" id="photoCount">0</div></div>
+  <div class="card">
+    <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="addPhoto(this)">
+    <button class="photo-add" onclick="document.getElementById('photoInput').click()">Add weekly photo</button>
+    <div style="height:12px"></div>
+    <div class="photo-grid" id="photoGrid"></div>
+    <div class="water-hint" style="font-size:11px;color:var(--text3);margin-top:10px">Front / side / back, same light, every Sunday. Compressed and stored on-device.</div>
+  </div>
   <div class="section-title"><h2>Next Milestone</h2></div>
   <div class="card" id="milestoneCard"></div>
   <div class="section-title"><h2>Weekly Check</h2></div>
@@ -356,7 +434,7 @@ button{cursor:pointer}
       <button class="bak-btn" onclick="document.getElementById('bakFile').click()">Restore</button>
       <input type="file" id="bakFile" accept="application/json,.json" style="display:none" onchange="importData(this)">
     </div>
-    <div class="water-hint">Export weekly. All data lives only on this phone.</div>
+    <div class="water-hint" style="font-size:11px;color:var(--text3);margin-top:10px">Export weekly. All data lives only on this phone.</div>
   </div>
 </div>
 
@@ -398,6 +476,12 @@ const PHASE = {1:{label:'RESET',cal:2100,protein:180},2:{label:'BUILD',cal:2100,
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const EVENT = new Date('2026-12-08T00:00:00');
 const TOTAL_DAYS = 113;
+const GOAL_STEPS = 12000;
+const TRAJ = [
+  {d:'2026-08-31',lo:97,hi:100},{d:'2026-09-14',lo:95,hi:98},{d:'2026-09-30',lo:92,hi:96},
+  {d:'2026-10-15',lo:90,hi:94},{d:'2026-10-31',lo:88,hi:92},{d:'2026-11-15',lo:86,hi:90},
+  {d:'2026-11-30',lo:84,hi:88},{d:'2026-12-08',lo:82,hi:86}
+];
 const W = {
   Monday:['Push + Abs',['Bench Press,3x5-8','Incline DB Press,3x8-12','Shoulder Press,3x6-10','Cable Lateral Raise,4x12-20','Triceps Pushdown,3x10-15','Overhead Triceps Extension,2x10-15','Cable Crunch,3x8-12']],
   Tuesday:['Pull',['Pull-ups / Lat Pulldown,3x6-12','Chest-Supported Row,3x8-12','Seated Cable Row,3x8-12','Rear-Delt Fly,3x12-20','DB Curl,3x8-12','Hammer Curl,2x10-15']],
@@ -451,8 +535,8 @@ function getTodayMeals(d){
   return P[((d%7)+7)%7];
 }
 
-let state=JSON.parse(localStorage.getItem('tState')||JSON.stringify({w:[],water:0,waterDate:'',doneEx:[],doneMeals:[],start:new Date().toISOString().slice(0,10),notes:{},recipeOpen:[]}));
-if(!state.w||!state.doneEx)state={w:state.w||[],water:state.water||0,waterDate:state.waterDate||'',doneEx:state.doneEx||[],doneMeals:state.doneMeals||[],start:state.start||new Date().toISOString().slice(0,10),notes:state.notes||{},recipeOpen:state.recipeOpen||[]};
+let state=JSON.parse(localStorage.getItem('tState')||JSON.stringify({w:[],water:0,waterDate:'',doneEx:[],doneMeals:[],start:new Date().toISOString().slice(0,10),notes:{},recipeOpen:[],steps:{},waist:[],photos:[]}));
+if(!state.w||!state.doneEx)state={w:state.w||[],water:state.water||0,waterDate:state.waterDate||'',doneEx:state.doneEx||[],doneMeals:state.doneMeals||[],start:state.start||new Date().toISOString().slice(0,10),notes:state.notes||{},recipeOpen:state.recipeOpen||[],steps:state.steps||{},waist:state.waist||[],photos:state.photos||[]};
 
 const APP_START=new Date('2026-08-17T00:00:00');
 function tk(){return new Date().toISOString().slice(0,10)}
@@ -468,8 +552,59 @@ function goTab(name){
   if(btn)btn.click();
   if(name==='progress')setTimeout(function(){document.getElementById('weightInput').focus()},250);
 }
+function fmt(n){return Math.round(n).toLocaleString('en-IN')}
 
 function findR(name){for(const c in R)for(const r of R[c])if(r.n===name)return r;return null}
+
+function avg7(){
+  const asc=[...state.w].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if(asc.length===0)return null;
+  const last7=asc.slice(-7);
+  return last7.reduce((a,b)=>a+b.v,0)/last7.length;
+}
+function trajRange(){
+  const tdy=tk();
+  for(let i=0;i<TRAJ.length-1;i++){
+    if(tdy>=TRAJ[i].d&&tdy<=TRAJ[i+1].d){
+      const a=TRAJ[i],b=TRAJ[i+1];
+      const t=(new Date(tdy)-new Date(a.d))/(new Date(b.d)-new Date(a.d));
+      return {lo:a.lo+(b.lo-a.lo)*t, hi:a.hi+(b.hi-a.hi)*t, next:b};
+    }
+  }
+  return null;
+}
+function renderTrack(){
+  const st=document.getElementById('trkStatus'),dt=document.getElementById('trkDetail'),pc=document.getElementById('trkPace');
+  const asc=[...state.w].sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const tr=trajRange();
+  if(!tr){st.textContent='—';st.className='trk-status';dt.textContent='Plan range unavailable.';pc.textContent='';return}
+  if(asc.length===0){
+    st.textContent='Log weight';st.className='trk-status';
+    dt.textContent='Log your first weigh-in to unlock tracking.';
+    pc.textContent='Plan for today: ~'+tr.lo.toFixed(0)+'-'+tr.hi.toFixed(0)+' kg.';
+    return;
+  }
+  if(asc.length<7){
+    const cur=asc[asc.length-1].v;
+    st.textContent='Warming up';st.className='trk-status';
+    dt.textContent='7 days of weigh-ins unlock the tracker. '+asc.length+'/7 logged.';
+    pc.textContent='Plan for today: ~'+tr.lo.toFixed(0)+'-'+tr.hi.toFixed(0)+' kg · you: '+cur.toFixed(1);
+    return;
+  }
+  const a=avg7();
+  const ahead=a<tr.lo-0.2,behind=a>tr.hi+0.2;
+  st.textContent=ahead?'Ahead of plan':(behind?'Behind plan':'On track');
+  st.className='trk-status'+(ahead?' ahead':(behind?' behind':''));
+  dt.textContent='Plan: ~'+tr.lo.toFixed(1)+'-'+tr.hi.toFixed(1)+' kg today · you: '+a.toFixed(1)+' (7-day avg)';
+  const span=asc.slice(-14);
+  if(span.length>=7){
+    const weeks=(new Date(span[span.length-1].date)-new Date(span[0].date))/604800000||1;
+    const pace=Math.max(0,Math.min(2.5,(span[0].v-span[span.length-1].v)/weeks));
+    const daysLeft=Math.max(0,(EVENT-new Date())/86400000);
+    const proj=span[span.length-1].v-pace*daysLeft/7;
+    pc.textContent='Pace '+pace.toFixed(1)+' kg/wk · projected ~'+proj.toFixed(1)+' kg on Dec 8';
+  }else pc.textContent='';
+}
 
 function renderToday(){
   const p=pn(),i=PHASE[p],dN=dop()+1,tdy=tk();
@@ -489,13 +624,14 @@ function renderToday(){
   const lost=(st-cur);
   document.getElementById('sLost').textContent=lost>0?lost.toFixed(1):'0';
   document.getElementById('sStreak').textContent=streak();
+  renderTrack();
   const meals=getTodayMeals(dop());
   document.getElementById('calTarget').textContent=i.cal;
-  let mh='',totC=0,lastGroup='';
+  let mh='',totC=0,totP=0,lastGroup='';
   meals.forEach((m,idx)=>{
     const done=state.doneMeals.includes(idx+'-'+tdy);
     const recOpen=state.recipeOpen.includes(idx+'-'+tdy);
-    if(done)totC+=m.c;
+    if(done){totC+=m.c;totP+=m.p}
     const r=findR(m.r);
     const parts=m.t.split(' '),h=parseInt(parts[0]),isPM=parts[1]==='PM',hour24=isPM?h+12:h;
     let group='';
@@ -521,10 +657,17 @@ function renderToday(){
   });
   document.getElementById('mealsContainer').innerHTML=mh;
   document.getElementById('calEaten').textContent=totC;
+  document.getElementById('calBar').style.width=Math.min(100,(totC/i.cal)*100)+'%';
+  document.getElementById('protEaten').textContent=totP;
+  document.getElementById('protBar').style.width=Math.min(100,(totP/i.protein)*100)+'%';
+  // Steps
+  const steps=state.steps[tdy]||0;
+  document.getElementById('stepsCount').textContent=fmt(steps);
+  document.getElementById('stepsBar').style.width=Math.min(100,(steps/GOAL_STEPS)*100)+'%';
   // Water
   const wc=state.water||0;
   document.getElementById('waterCount').textContent=wc;
-  document.getElementById('waterHint').textContent=wc+' of 8 cups · '+(wc*0.375).toFixed(1)+'L of 3L';
+  document.getElementById('waterLiters').textContent=(wc*0.375).toFixed(1);
   let wh='';
   for(let i=0;i<8;i++)wh+=`<div class="water-seg${i<wc?' done':''}" onclick="togWater(${i})"></div>`;
   document.getElementById('waterGrid').innerHTML=wh;
@@ -569,6 +712,7 @@ function togMeal(i){
 }
 function togWater(i){state.water=(i<state.water)?i:(i+1);if(state.water===1)state.waterDate=tk();buzz();sv();renderToday()}
 function togEx(i){const k=tk()+'-'+i;const idx=state.doneEx.indexOf(k);if(idx>-1)state.doneEx.splice(idx,1);else state.doneEx.push(k);buzz();sv();renderToday()}
+function addSteps(n){const t=tk();state.steps[t]=(state.steps[t]||0)+n;buzz();sv();renderToday()}
 
 function renderWorkout(){
   const day=dn();
@@ -599,26 +743,45 @@ function togExFromTab(day,i){const k=tk()+'-'+i;const idx=state.doneEx.indexOf(k
 
 document.addEventListener('input',function(e){if(e.target.id==='workoutNotes'){state.notes[tk()]=e.target.value;sv()}});
 document.getElementById('weightInput').addEventListener('keydown',function(e){if(e.key==='Enter')logWeight()});
+document.getElementById('waistInput').addEventListener('keydown',function(e){if(e.key==='Enter')logWaist()});
 
 function renderProgress(){
   const desc=[...state.w].sort((a,b)=>new Date(b.date)-new Date(a.date));
   const asc=[...desc].reverse();
-  // Sparkline
+  // Sparkline + 7-day avg overlay
   const svg=document.getElementById('sparkline');
   if(asc.length>=2){
     const pts=asc.slice(-14),vals=pts.map(p=>p.v),mn=Math.min(...vals),mx=Math.max(...vals),rg=(mx-mn)||1;
-    const coords=pts.map((p,i)=>[(i/(pts.length-1))*300,64-((p.v-mn)/rg)*52]).map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+    const Y=v=>64-((v-mn)/rg)*52;
+    const coords=pts.map((p,i)=>[(i/(pts.length-1))*300,Y(p.v)].map(x=>x.toFixed(1)).join(',')).join(' ');
+    let avgPts='';
+    if(pts.length>=7){
+      const ap=[];
+      for(let i=6;i<pts.length;i++){
+        const win=pts.slice(i-6,i+1);
+        ap.push([i/(pts.length-1)*300,Y(win.reduce((a,b)=>a+b.v,0)/win.length)]);
+      }
+      avgPts='<polyline class="avg" points="'+ap.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')+'"/>';
+    }
     const last=coords.split(' ').pop().split(',');
-    svg.innerHTML=`<polyline points="${coords}"/><circle cx="${last[0]}" cy="${last[1]}" r="3.5"/>`;
+    svg.innerHTML='<polyline points="'+coords+'"/>'+avgPts+'<circle cx="'+last[0]+'" cy="'+last[1]+'" r="3.5"/>';
   }else svg.innerHTML='';
-  // Chips
+  // Chips: avg, pace, projection
   const cur=asc.length?asc[asc.length-1].v:null,st=asc.length?asc[0].v:null;
   let chips='';
   if(asc.length>=7){
-    const last7=asc.slice(-7);const avg7=(last7.reduce((a,b)=>a+b.v,0)/last7.length).toFixed(1);
-    chips+=`<span class="chip">7-day avg <b>${avg7} kg</b></span>`;
+    const last7=asc.slice(-7);const avg7v=(last7.reduce((a,b)=>a+b.v,0)/last7.length).toFixed(1);
+    chips+=`<span class="chip">7-day avg <b>${avg7v} kg</b></span>`;
   }
-  if(cur&&st)chips+=`<span class="chip">Total <b>${(st-cur).toFixed(1)} kg</b> lost</span>`;
+  if(asc.length>=7){
+    const span=asc.slice(-14);
+    const weeks=Math.max(0.5,(new Date(span[span.length-1].date)-new Date(span[0].date))/604800000);
+    const pace=Math.max(0,Math.min(2.5,(span[0].v-span[span.length-1].v)/weeks));
+    const daysLeft=Math.max(0,(EVENT-new Date())/86400000);
+    const proj=span[span.length-1].v-pace*daysLeft/7;
+    chips+=`<span class="chip">Pace <b>${pace.toFixed(1)} kg/wk</b></span>`;
+    chips+=`<span class="chip">Projected <b>${proj.toFixed(1)} kg</b> Dec 8</span>`;
+  }
   if(!cur)chips+='<span class="chip">Log your first weight to start the trend</span>';
   document.getElementById('avgChips').innerHTML=chips;
   // Milestones
@@ -633,7 +796,7 @@ function renderProgress(){
     }else mc=`<div class="mile-name">All milestones hit. You did it.</div><div class="mile-track"><div class="mile-fill" style="width:100%"></div></div>`;
   }else mc=`<div class="mile-name">First milestone: 95 kg — noticeably leaner face</div><div class="mile-track"><div class="mile-fill" style="width:0%"></div></div><div class="mile-sub">Log your starting weight to begin</div>`;
   document.getElementById('milestoneCard').innerHTML=mc;
-  // Log (newest first, diff vs previous entry)
+  // Weight log
   document.getElementById('weightLog').innerHTML=desc.length===0
     ?'<div class="empty-state">No weights logged yet.<br>Log your morning weight — the 7-day average is the truth.</div>'
     :desc.slice(0,14).map((w,i)=>{
@@ -641,6 +804,21 @@ function renderProgress(){
       const d=p?(p.v-w.v).toFixed(1):null;
       return `<div class="entry-row"><span class="d">${w.date}</span><span class="v">${w.v} kg ${d?(d>0?`<span class="diff down">-${d}</span>`:`<span class="diff up">+${Math.abs(d)}</span>`):''}</span></div>`;
     }).join('');
+  // Waist log
+  const wdesc=[...state.waist].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  document.getElementById('waistLog').innerHTML=wdesc.length===0
+    ?'<div class="empty-state" style="margin:0">No waist measurements yet. Measure at the navel, same time as weigh-in, every Sunday.</div>'
+    :wdesc.slice(0,8).map((w,i)=>{
+      const p=wdesc[i+1];
+      const d=p?(p.v-w.v).toFixed(1):null;
+      return `<div class="entry-row"><span class="d">${w.date}</span><span class="v">${w.v} cm ${d?(d>0?`<span class="diff down">-${d}</span>`:`<span class="diff up">+${Math.abs(d)}</span>`):''}</span></div>`;
+    }).join('');
+  // Photos
+  const ph=[...state.photos].reverse().slice(0,6);
+  document.getElementById('photoCount').textContent=state.photos.length;
+  document.getElementById('photoGrid').innerHTML=ph.length===0
+    ?'<div class="empty-state" style="grid-column:1/-1;margin:0">No photos yet. First one today — you will want it in December.</div>'
+    :ph.map(p=>`<div class="photo-thumb"><img src="${p.d}" alt="progress"><div class="pd">${p.date.slice(5)}</div></div>`).join('');
 }
 function logWeight(){
   const val=parseFloat(document.getElementById('weightInput').value);
@@ -649,6 +827,35 @@ function logWeight(){
   state.w.sort((a,b)=>new Date(a.date)-new Date(b.date));
   document.getElementById('weightInput').value='';
   buzz();sv();renderProgress();renderToday();
+}
+function logWaist(){
+  const val=parseFloat(document.getElementById('waistInput').value);
+  if(!val||val<40||val>200)return;
+  state.waist.push({date:tk(),v:val});
+  state.waist.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  document.getElementById('waistInput').value='';
+  buzz();sv();renderProgress();
+}
+function addPhoto(input){
+  const f=input.files&&input.files[0];
+  if(!f)return;
+  const reader=new FileReader();
+  reader.onload=function(){
+    const img=new Image();
+    img.onload=function(){
+      const MAX=320;
+      const sc=Math.min(1,MAX/Math.max(img.width,img.height));
+      const cv=document.createElement('canvas');
+      cv.width=Math.round(img.width*sc);cv.height=Math.round(img.height*sc);
+      cv.getContext('2d').drawImage(img,0,0,cv.width,cv.height);
+      state.photos.push({date:tk(),d:cv.toDataURL('image/jpeg',0.72)});
+      if(state.photos.length>90)state.photos=state.photos.slice(-90);
+      buzz();sv();renderProgress();
+    };
+    img.src=reader.result;
+  };
+  reader.readAsDataURL(f);
+  input.value='';
 }
 function exportData(){
   const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
@@ -668,7 +875,7 @@ function importData(input){
       const d=JSON.parse(reader.result);
       if(!d||typeof d!=='object'||!Array.isArray(d.w))throw new Error('bad');
       if(!confirm('Replace current data with this backup?'))return;
-      state={w:d.w||[],water:d.water||0,waterDate:d.waterDate||'',doneEx:d.doneEx||[],doneMeals:d.doneMeals||[],start:d.start||new Date().toISOString().slice(0,10),notes:d.notes||{},recipeOpen:d.recipeOpen||[]};
+      state={w:d.w||[],water:d.water||0,waterDate:d.waterDate||'',doneEx:d.doneEx||[],doneMeals:d.doneMeals||[],start:d.start||new Date().toISOString().slice(0,10),notes:d.notes||{},recipeOpen:d.recipeOpen||[],steps:d.steps||{},waist:d.waist||[],photos:d.photos||[]};
       sv();renderProgress();renderToday();
       buzz();
     }catch(e){alert('That file is not a valid backup.')}
