@@ -319,7 +319,7 @@ button{cursor:pointer}
 
 <div class="hero">
   <div>
-    <div class="hero-num" id="daysLeft">113</div>
+    <div class="hero-num" id="daysLeft">77</div>
     <div class="hero-label">Days</div>
     <div class="hero-sub">to Fred Again.. &middot; Dec 8</div>
   </div>
@@ -332,8 +332,8 @@ button{cursor:pointer}
 
 <div class="tab-pane active" id="pane-today">
   <div class="stats-row">
-    <div class="stat-box"><div class="num" id="sStart">102</div><div class="label">Start</div></div>
-    <div class="stat-box" onclick="goTab('progress')"><div class="num" id="sCurrent">102</div><div class="label">Current</div></div>
+    <div class="stat-box"><div class="num" id="sStart">105.9</div><div class="label">Start</div></div>
+    <div class="stat-box" onclick="goTab('progress')"><div class="num" id="sCurrent">105.9</div><div class="label">Current</div></div>
     <div class="stat-box"><div class="num green" id="sLost">0</div><div class="label">Lost</div></div>
     <div class="stat-box"><div class="num" id="sStreak">0</div><div class="label">Streak</div></div>
   </div>
@@ -472,15 +472,15 @@ button{cursor:pointer}
 <div class="bot-space"></div>
 
 <script>
-const PHASE = {1:{label:'RESET',cal:2100,protein:180},2:{label:'BUILD',cal:2100,protein:180},3:{label:'SHAPE',cal:2000,protein:180},4:{label:'FINAL CUT',cal:1950,protein:180},5:{label:'TRANSITION',cal:2300,protein:180},6:{label:'POLISH',cal:2200,protein:180}};
+const PHASE = {1:{label:'RESTART',cal:2100,protein:180},2:{label:'BUILD',cal:2100,protein:180},3:{label:'SHAPE',cal:2000,protein:180},4:{label:'FINAL CUT',cal:1950,protein:180},5:{label:'TRANSITION',cal:2300,protein:180},6:{label:'POLISH',cal:2200,protein:180}};
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const EVENT = new Date('2026-12-08T00:00:00');
-const TOTAL_DAYS = 113;
+const TOTAL_DAYS = 77;
 const GOAL_STEPS = 12000;
 const TRAJ = [
-  {d:'2026-08-31',lo:97,hi:100},{d:'2026-09-14',lo:95,hi:98},{d:'2026-09-30',lo:92,hi:96},
-  {d:'2026-10-15',lo:90,hi:94},{d:'2026-10-31',lo:88,hi:92},{d:'2026-11-15',lo:86,hi:90},
-  {d:'2026-11-30',lo:84,hi:88},{d:'2026-12-08',lo:82,hi:86}
+  {d:'2026-09-23',lo:105,hi:106.5},{d:'2026-10-07',lo:103.5,hi:105},{d:'2026-10-21',lo:101.5,hi:103},
+  {d:'2026-11-04',lo:99.5,hi:101},{d:'2026-11-18',lo:97.5,hi:99},{d:'2026-12-02',lo:96,hi:97.5},
+  {d:'2026-12-08',lo:95,hi:97}
 ];
 const W = {
   Monday:['Push + Abs',['Bench Press,3x5-8','Incline DB Press,3x8-12','Shoulder Press,3x6-10','Cable Lateral Raise,4x12-20','Triceps Pushdown,3x10-15','Overhead Triceps Extension,2x10-15','Cable Crunch,3x8-12']],
@@ -538,12 +538,12 @@ function getTodayMeals(d){
 let state=JSON.parse(localStorage.getItem('tState')||JSON.stringify({w:[],water:0,waterDate:'',doneEx:[],doneMeals:[],start:new Date().toISOString().slice(0,10),notes:{},recipeOpen:[],steps:{},waist:[],photos:[]}));
 if(!state.w||!state.doneEx)state={w:state.w||[],water:state.water||0,waterDate:state.waterDate||'',doneEx:state.doneEx||[],doneMeals:state.doneMeals||[],start:state.start||new Date().toISOString().slice(0,10),notes:state.notes||{},recipeOpen:state.recipeOpen||[],steps:state.steps||{},waist:state.waist||[],photos:state.photos||[]};
 
-const APP_START=new Date('2026-08-17T00:00:00');
+const APP_START=new Date('2026-09-23T00:00:00'); // attempt 3 restart (was 2026-08-17)
 function tk(){return new Date().toISOString().slice(0,10)}
 function dn(){return DAYS[new Date().getDay()]}
 function wn(){return Math.max(0,Math.min(23,Math.floor(Math.floor((new Date()-APP_START)/86400000)/7)))}
 function dop(){return Math.max(0,Math.floor((new Date()-APP_START)/86400000))}
-function pn(){const d=dop();return d<29?1:d<64?2:d<92?3:d<106?4:d<110?5:6}
+function pn(){const d=dop();return d<14?1:d<40?2:d<58?3:d<72?4:d<75?5:6}
 function sv(){try{localStorage.setItem('tState',JSON.stringify(state))}catch(e){if(!svWarned){svWarned=true;alert('Storage is full. Export a backup from Progress.');}}}
 let svWarned=false;
 function buzz(){try{if(navigator.vibrate)navigator.vibrate(8)}catch(e){}}
@@ -611,7 +611,7 @@ function renderToday(){
   const left=Math.max(0,Math.ceil((EVENT-new Date())/86400000));
   document.getElementById('weekNum').textContent=wn()+1;
   document.getElementById('phaseName').textContent=PHASE[p].label;
-  document.getElementById('dayBadge').textContent='Day '+Math.min(dN,113);
+  document.getElementById('dayBadge').textContent='Day '+Math.min(dN,77);
   const now=new Date();
   document.getElementById('todayDate').textContent=now.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}).toUpperCase().replace(',',' ·');
   document.getElementById('daysLeft').textContent=left;
@@ -785,8 +785,8 @@ function renderProgress(){
   if(!cur)chips+='<span class="chip">Log your first weight to start the trend</span>';
   document.getElementById('avgChips').innerHTML=chips;
   // Milestones
-  const MILES=[{v:95,t:'Noticeably leaner face'},{v:90,t:'V-taper · flatter abdomen'},{v:85,t:'Athletic look · upper abs'},{v:83,t:'Visible abs'},{v:80,t:'Peak cut'}];
-  const base=st||102;
+  const MILES=[{v:102,t:'Noticeably leaner face'},{v:100,t:'Flatter abdomen · waist down'},{v:98,t:'V-taper forming'},{v:96,t:'Athletic look'},{v:94,t:'Peak of this arc'}];
+  const base=st||105.9;
   let mc='';
   if(cur){
     const next=MILES.find(m=>cur>m.v);
@@ -794,7 +794,7 @@ function renderProgress(){
       const fill=Math.max(0,Math.min(100,((base-cur)/(base-next.v))*100));
       mc=`<div class="mile-name">Next: ${next.v} kg — ${next.t}</div><div class="mile-track"><div class="mile-fill" style="width:${fill.toFixed(0)}%"></div></div><div class="mile-sub">${cur.toFixed(1)} kg now &middot; ${(cur-next.v).toFixed(1)} kg to go</div>`;
     }else mc=`<div class="mile-name">All milestones hit. You did it.</div><div class="mile-track"><div class="mile-fill" style="width:100%"></div></div>`;
-  }else mc=`<div class="mile-name">First milestone: 95 kg — noticeably leaner face</div><div class="mile-track"><div class="mile-fill" style="width:0%"></div></div><div class="mile-sub">Log your starting weight to begin</div>`;
+  }else mc=`<div class="mile-name">First milestone: 102 kg — noticeably leaner face</div><div class="mile-track"><div class="mile-fill" style="width:0%"></div></div><div class="mile-sub">Log your starting weight to begin</div>`;
   document.getElementById('milestoneCard').innerHTML=mc;
   // Weight log
   document.getElementById('weightLog').innerHTML=desc.length===0
