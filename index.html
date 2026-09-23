@@ -9,9 +9,9 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f6f6f4" media="(prefers-color-scheme: light)">
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Transformation — Fred Again Cut</title>
 <script>try{var t=localStorage.getItem('tTheme');if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';document.documentElement.setAttribute('data-theme',t);document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]').content=t==='light'?'default':'black-translucent'}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -955,7 +955,7 @@ document.addEventListener('touchend',function(e){
 },{passive:true});
 
 renderToday();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
 console.log('Transformation PWA loaded');
 </script>
 </body>

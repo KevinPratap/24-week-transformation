@@ -1,13 +1,14 @@
 /* Transformation PWA service worker — offline app shell, fresh tip when online */
-const CACHE = 'fred-v4';
+const CACHE = 'fred-v5';
+const BASE = new URL('./', self.location).pathname; // works at '/' and at a subpath like /24-week-transformation/
 const PRECACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/icon-maskable-512.png',
-  '/apple-touch-icon.png'
+  BASE,
+  BASE + 'index.html',
+  BASE + 'manifest.json',
+  BASE + 'icon-192.png',
+  BASE + 'icon-512.png',
+  BASE + 'icon-maskable-512.png',
+  BASE + 'apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (e) => {
@@ -34,10 +35,10 @@ self.addEventListener('fetch', (e) => {
       fetch(req)
         .then((res) => {
           const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put('/', copy));
+          caches.open(CACHE).then((c) => c.put(BASE, copy));
           return res;
         })
-        .catch(() => caches.match('/'))
+        .catch(() => caches.match(BASE))
     );
     return;
   }
